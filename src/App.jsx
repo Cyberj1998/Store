@@ -11,7 +11,7 @@ import {
 function App() {
 
   return (
-    <section className='main-wrapper h-screen w-full border-2 border-pink-500 flex flex-col justify-center items-center'>
+    <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
       <Router>
         <Routes>
           <Route 

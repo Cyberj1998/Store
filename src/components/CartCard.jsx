@@ -9,51 +9,50 @@ const CartCard = ({ item }) => {
   const decreaseQuantity = useCartStore(state=>state.decreaseQuantity)
   const removeFromCart = useCartStore(state=>state.removeFromCart)
 
-  return (
-    <div className="border border-black h-30 w-[90%] m-2 shrink-0 rounded-2xl flex flex-row justify-between items-center p-2 relative">
-      <div className="flex flex-col justify-center items-center">
+  return (  
+    <div className="rounded-2xl flex items-center justify-between p-4 m-2 w-[90%] max-w-xl relative shrink-0 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
+      <div className="flex flex-col items-center justify-center gap-2">
         <img 
-          src={item.image}
+          src={item.image} 
           alt="product image" 
-          className="h-25 max-md:h-20 w-25 max-md:w-20"
+          className="h-24 w-24 max-md:h-16 max-md:w-16 object-contain"
         />
-        <p className="text-[15px] max-md:text-[12px] font-semibold">
+        <p className="text-sm max-md:text-xs font-semibold text-center">
           {item.name}
         </p>
       </div>
 
-      <div className="h-30 w-[20%] max-md:w-[40%] flex flex-row justify-evenly items-center">
-        <button onClick={()=>decreaseQuantity(item.id)}>
+      <div className="flex items-center justify-evenly w-[20%] max-md:w-[40%] gap-2">
+        <button onClick={() => decreaseQuantity(item.id)} aria-label="decrease quantity">
           <img 
-            src={Minus}
-            alt="left" 
-            className='bg-black rounded-full h-12.5 max-md:h-8 cursor-pointer'
+            src={Minus} 
+            alt="minus" 
+            className="bg-black rounded-full h-12 max-md:h-8 w-12 max-md:w-8 cursor-pointer p-1"
           />
         </button>
-        <p className="text-[20px] max-md:text-[25px] font-semibold">
-          {item.quantity}
-        </p>
-        <button onClick={()=>increaseQuantity(item.id)}>
+        <p className="text-lg max-md:text-xl font-semibold">{item.quantity}</p>
+        <button onClick={() => increaseQuantity(item.id)} aria-label="increase quantity">
           <img 
-            src={Plus}
-            alt="right" 
-            className='bg-black rounded-full h-12.5 max-md:h-8 cursor-pointer'
+            src={Plus} 
+            alt="plus" 
+            className="bg-black rounded-full h-12 max-md:h-8 w-12 max-md:w-8 cursor-pointer p-1"
           />
         </button>
       </div>
 
-      <p className='text-[20px] max-md:text-[15px] font-semibold mr-12'>
-        $: {item.price}
+      <p className="text-lg max-md:text-sm font-semibold mr-12">
+        ${item.price}
       </p>
 
       <button 
-        onClick={()=>removeFromCart(item.id)}
-        className='absolute top-0 right-0 m-2 cursor-pointer'
+        onClick={() => removeFromCart(item.id)} 
+        className="absolute top-2 right-2 cursor-pointer"
+        aria-label="remove item"
       >
         <img 
-          src={Delete}
+          src={Delete} 
           alt="delete" 
-          className='h-8 bg-black rounded-full'
+          className="h-8 w-8 bg-black rounded-full p-1"
         />
       </button>
     </div>
