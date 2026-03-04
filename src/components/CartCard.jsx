@@ -22,12 +22,12 @@ const CartCard = ({ item }) => {
         </p>
       </div>
 
-      <div className="flex items-center justify-evenly w-[20%] max-md:w-[40%] gap-2">
+      <div className="flex w-fit items-center justify-evenly max-md:w-[40%] gap-2">
         <button onClick={() => decreaseQuantity(item.id)} aria-label="decrease quantity">
           <img 
             src={Minus} 
             alt="minus" 
-            className="bg-black rounded-full h-12 max-md:h-8 w-12 max-md:w-8 cursor-pointer p-1"
+            className="bg-black rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
           />
         </button>
         <p className="text-lg max-md:text-xl font-semibold">{item.quantity}</p>
@@ -35,7 +35,7 @@ const CartCard = ({ item }) => {
           <img 
             src={Plus} 
             alt="plus" 
-            className="bg-black rounded-full h-12 max-md:h-8 w-12 max-md:w-8 cursor-pointer p-1"
+            className="bg-black rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
           />
         </button>
       </div>

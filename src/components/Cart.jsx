@@ -85,7 +85,7 @@ const Cart = () => {
 
           <button 
             onClick={()=>checkoutFunction()}
-            className="mt-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg py-3 shadow-lg transition"
+            className="mt-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-semibold rounded-lg py-3 shadow-lg transition duration-500"
           >
             Checkout
           </button>
@@ -104,12 +104,16 @@ const Cart = () => {
         <p className="text-gray-500 text-lg mt-10">Carrito Vacio</p>
       )}
 
-      <button 
-        className="checkout-btn mt-6 mb-2 cursor-pointer w-full max-w-xl p-4 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition"
-        onClick={()=>handleModal()}
-      >
-        Proceed to Checkout
-      </button>
+      {
+        cart.length > 0 ? (
+          <button 
+            className="checkout-btn mt-6 mb-2 cursor-pointer w-full max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
+            onClick={()=>handleModal()}
+          >
+            Proceed to Checkout
+          </button>
+        ) : ''
+      }
     </div>
   )
 }
