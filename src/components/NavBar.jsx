@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom"
-import Logo from '../assets/images/logo.png'
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from "../store/CartSlice"
 import Shop from '../assets/images/shop.png'
-import ShopIcon from '../assets/images/shopIcon.png'
+import ShopIcon from '../assets/images/shopLogo.png'
 
 const NavBar = () => {
 
