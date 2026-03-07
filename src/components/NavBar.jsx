@@ -14,7 +14,7 @@ const NavBar = () => {
         <img 
           src={Shop}
           alt="shop icon" 
-          className="h-10 w-10"
+          className="h-10 w-10 bg-gray-400 rounded-full overflow-visible"
         />
         <p>Shop</p>
       </Link>
@@ -32,7 +32,7 @@ const NavBar = () => {
         <img 
           src={CartIcon} 
           alt="cart icon"
-          className="h-10 w-10" 
+          className="h-10 w-10 bg-gray-400 rounded-full overflow-visible" 
         />
         <p className="text-[20px] absolute -top-2 -right-3">{quantity}</p>
       </Link>
