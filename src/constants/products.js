@@ -1,6 +1,6 @@
 import aceite from '../assets/images/aceite.png'
 import arroz from '../assets/images/arroz.png'
-import carne from '../assets/images/carne-de-cerdo.png'
+import carne from '../assets/images/carne.png'
 import cerveza from '../assets/images/cerveza.png'
 import galletas from '../assets/images/galletas.png'
 import gelatina from '../assets/images/gelatina.png'

@@ -16,7 +16,7 @@ const NavBar = () => {
           alt="shop icon" 
           className="h-10 w-10 bg-gray-400 rounded-full overflow-visible"
         />
-        <p>Shop</p>
+        <p>Tienda</p>
       </Link>
 
       <img 

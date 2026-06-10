@@ -30,7 +30,7 @@ function App() {
                   selectedCategory={selectedCategory} 
                   setSelectedCategory={setSelectedCategory} 
                 />
-                <Shop searchValue={searchValue} selectedCategory={selectedCategory} />
+                <Shop />
               </>
             }
           />

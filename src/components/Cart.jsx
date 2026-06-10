@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 const Cart = () => {
 
   const cart = useCartStore(state=>state.cart)
-  const clearCart = useCartStore(state=>state.clearCart)
+  const clearCart = useCartStore(state=>state.clearCart)     
   const getTotalPrice = useCartStore(state=>state.getTotalPrice)
   const getTotalQuantity = useCartStore(state=>state.getTotalQuantity)
   const[address,setAddress]=useState('')
@@ -50,7 +50,7 @@ const Cart = () => {
       
       
       {modal ? (
-        <div className="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-3xl shadow-lg w-[40%] max-md:w-[80%] max-h-[80vh] p-8 flex flex-col gap-6 overflow-auto">
+        <div className="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-3xl shadow-lg w-[40%] max-md:w-[90%] max-h-[90vh] p-8 flex flex-col gap-6 overflow-auto">
           <button 
             onClick={()=>handleModal()}
             className="self-end cursor-pointer bg-red-500 hover:bg-red-600 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center shadow-md transition"
@@ -110,7 +110,7 @@ const Cart = () => {
             className="checkout-btn mt-6 mb-2 cursor-pointer w-full max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
             onClick={()=>handleModal()}
           >
-            Proceed to Checkout
+            <p className="uppercase text-[20px] font-bold">Comprar</p>
           </button>
         ) : ''
       }

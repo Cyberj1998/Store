@@ -1,32 +1,41 @@
-import products from "../constants/products"
 import ProductCard from "./ProductCard"
 import { useEffect, useState } from "react"
+import { Client, TablesDB, Query } from "appwrite"
+//-----------------appwrite credentials
 
-const Shop = ({ searchValue, selectedCategory }) => {
+const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
+const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
+const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 
-  const[filteredProducts,setFilteredProducts]=useState(products)
+const Shop = () => {
 
-  useEffect(() => {
-    let filtered = products;
+  const[products,setProducts]=useState([])
 
-    if (searchValue) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
-    }
+  //------------------------appwrite database code
 
-    if (selectedCategory && selectedCategory !== '') {
-      filtered = filtered.filter(product =>
-        product.category === selectedCategory
-      );
-    }
+  const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+  const tablesDB = new TablesDB(client);
 
-    setFilteredProducts(filtered);
-  }, [searchValue, selectedCategory]);
+  const handleCallRows = async () => {
+    try {
+      const response = await tablesDB.listRows(DATABASE_ID, "products");
+
+      const newRows = response.rows 
+
+      setProducts(newRows)
+      console.log(products)
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+
+  useEffect(()=>{
+    handleCallRows()
+  },[])
 
   return (
       <div className="w-full py-27 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-y-auto">
-        {filteredProducts.map(product => (
+        {products.map(product => (
           <ProductCard 
             key={product.id}
             product={product}

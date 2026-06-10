@@ -10,7 +10,7 @@ const CartCard = ({ item }) => {
   const removeFromCart = useCartStore(state=>state.removeFromCart)
 
   return (  
-    <div className="rounded-2xl flex items-center justify-between p-4 m-2 w-[90%] max-w-xl relative shrink-0 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="rounded-2xl flex items-center justify-between p-4 m-2 w-[90%] max-w-xl max-md:h-50 relative shrink-0 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="flex flex-col items-center justify-center gap-2">
         <img 
           src={item.image} 
