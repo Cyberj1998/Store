@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, ChevronDown } from 'lucide-react';
+import SearchIcon from '../assets/images/search.png';
+import Burger from '../assets/images/burgerMenu.png';
 
 const Search = () => {
   const [category, setCategory] = useState('All');
@@ -15,7 +16,7 @@ const Search = () => {
   ];
 
   return (
-    <nav className="w-full bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 font-sans">
+    <nav className="w-full bg-gray-200 shadow-sm border-b border-gray-200 sticky top-0 z-50 rounded-full mt-3 ml-2 mr-2 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           
@@ -41,15 +42,19 @@ const Search = () => {
                   </option>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                <ChevronDown size={14} />
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500 text-xs">
+                ▼
               </div>
             </div>
 
             {/* Search Input */}
-            <div className="relative flex-1">
+            <div className="relative flex-1 flex items-center">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
+                <img 
+                  src={SearchIcon} 
+                  alt="search" 
+                  className="w-4 h-4 object-contain opacity-60" 
+                />
               </div>
               <input
                 type="text"
@@ -59,23 +64,21 @@ const Search = () => {
             </div>
           </div>
 
-          {/* ACTION BUTTONS */}
+          {/* DESKTOP ACTIONS (No Cart) */}
           <div className="hidden md:flex items-center space-x-6">
             <button className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
               Sign In
             </button>
-            <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-all">
-              <ShoppingCart size={22} />
-              <span className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">
-                3
-              </span>
-            </button>
           </div>
 
-          {/* MOBILE TOGGLE */}
+          {/* MOBILE TOGGLE (Burger Menu) */}
           <div className="md:hidden flex items-center">
-            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-md">
-              <Menu size={24} />
+            <button className="p-2 hover:bg-gray-100 rounded-md transition-colors">
+              <img 
+                src={Burger} 
+                alt="menu" 
+                className="w-6 h-6 object-contain" 
+              />
             </button>
           </div>
 
