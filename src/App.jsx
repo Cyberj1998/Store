@@ -11,10 +11,6 @@ import {
 } from "react-router-dom";
 
 function App() {
-
-  const[searchValue,setSearchValue]=useState('')
-  const[selectedCategory,setSelectedCategory]=useState(null);
-
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
       <Router>
@@ -24,12 +20,7 @@ function App() {
             element={
               <>
                 <NavBar />
-                <Search 
-                  setSearchValue={setSearchValue} 
-                  searchValue={searchValue} 
-                  selectedCategory={selectedCategory} 
-                  setSelectedCategory={setSelectedCategory} 
-                />
+                <Search />
                 <Shop />
               </>
             }

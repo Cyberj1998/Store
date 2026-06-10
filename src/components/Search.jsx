@@ -1,98 +1,88 @@
-import SearhcIcon from '../assets/images/search.png'
-import Burger from '../assets/images/burgerMenu.png'
-import { useState, useEffect } from 'react'
 
-const Search = ({ setSearchValue, searchValue, selectedCategory, setSelectedCategory }) => {
+import React, { useState } from 'react';
+import { ShoppingCart, Menu, ChevronDown } from 'lucide-react';
 
-  const[filterMenu,setFilterMenu]=useState(false)
-  const[windowWidth,setWindowWidth]=useState()
+const Search = () => {
+  const [category, setCategory] = useState('All');
 
-  const handleFilterMenu = () => {
-    setFilterMenu(prev => !prev)
-  }
-
-  useEffect(()=>{
-    setWindowWidth(window.innerWidth)
-  },[window.innerWidth])
+  const categories = [
+    'All',
+    'Electronics',
+    'Fashion',
+    'Home & Garden',
+    'Sports',
+    'Beauty'
+  ];
 
   return (
-    
-    <div className={`${!filterMenu ? 'h-12.5' : 'h-fit' } transition-all duration-300 w-full fixed top-0 mt-14 flex flex-col justify-between items-center bg-white shadow-md`}>
-
-      <div className='flex flex-row justify-between items-center w-full'>
-        <div className='flex flex-row justify-center items-center relative'>
-          <p className='hidden sm:block text-[15px] uppercase m-2'>filtrar</p>
-          <button 
-            className='cursor-pointer'
-            onClick={handleFilterMenu}
-          >
-            <img 
-              src={Burger}
-              alt="burger menu icon"
-              className='h-9 w-9' 
-            />
-          </button>
-        </div>
-
-    
-        <div className='search-container flex flex-row justify-center items-center'>
-          <input 
-            type="text"
-            className='border h-9 w-100 max-md:w-50 rounded-[5px]'
-            placeholder='search' 
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-          <button className='cursor-pointer m-2'>
-            <img 
-              src={SearhcIcon} 
-              alt="magnifying glass" 
-              className='rounded-full h-9 w-9'
-            />
-          </button>
-        </div>
-
-      </div>
-      {filterMenu && (
-            <div className='w-full'>
-             <div className='w-fit'>
-               {[
-                'aceites y grasas',
-                'cereales y derivados',
-                'carnes',
-                'bebidas',
-                'productos de panadería y repostería',
-                'postres y gelatinas',
-                'huevos y lácteos',
-                'harinas y almidones',
-                'condimentos y salsas'
-                ].map(category => (
-                <div
-                  className='text-[17px] font-semibold cursor-pointer hover:bg-[#e3e3e3] m-1'
-                  key={category}
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    
-                    handleFilterMenu()
-                  }}
-                >
-                  {category}
-                </div>
-              ))}
-              <div 
-              className='text-[15px] font-semibold cursor-pointer bg-[#5289e7] hover:bg-[#52d8e7]'
-              onClick={() => {
-                setSelectedCategory(null);
-                
-                handleFilterMenu()
-              }}>
-                Limpiar filtro
-              </div>
-             </div>
+    <nav className="w-full bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 gap-4">
+          
+          {/* LOGO */}
+          <div className="shrink-0 flex items-center">
+            <div className="text-2xl font-extrabold tracking-tighter text-blue-600 cursor-pointer">
+              STORE<span className="text-gray-900">FLOW</span>
             </div>
-          )}
-    </div>
-  )
-}
+          </div>
 
-export default Search
+          {/* SEARCH & CATEGORY GROUP */}
+          <div className="flex-1 flex items-center max-w-3xl">
+            {/* Category Dropdown */}
+            <div className="relative shrink-0">
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="h-10 appearance-none bg-gray-100 border border-gray-200 text-gray-700 pl-4 pr-8 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white cursor-pointer text-sm transition-all"
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                <ChevronDown size={14} />
+              </div>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative flex-1">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                className="block w-full h-10 pl-10 pr-3 py-2 border border-l-0 border-gray-200 bg-gray-100 rounded-r-md focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 sm:text-sm transition-all"
+                placeholder={`Search in ${category}...`}
+              />
+            </div>
+          </div>
+
+          {/* ACTION BUTTONS */}
+          <div className="hidden md:flex items-center space-x-6">
+            <button className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+              Sign In
+            </button>
+            <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-all">
+              <ShoppingCart size={22} />
+              <span className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">
+                3
+              </span>
+            </button>
+          </div>
+
+          {/* MOBILE TOGGLE */}
+          <div className="md:hidden flex items-center">
+            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-md">
+              <Menu size={24} />
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Search;
