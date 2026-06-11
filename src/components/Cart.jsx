@@ -6,10 +6,11 @@ import { useState, useEffect } from "react"
 const Cart = () => {
 
   const cart = useCartStore(state=>state.cart)
-  const clearCart = useCartStore(state=>state.clearCart)     
+  const clearCart = useCartStore(state=>state.clearCart)   
   const getTotalPrice = useCartStore(state=>state.getTotalPrice)
   const getTotalQuantity = useCartStore(state=>state.getTotalQuantity)
   const[address,setAddress]=useState('')
+  const[destinatario,setDestinatario]=useState('')
   const[total,setTotal]=useState(0)
   const[totalQuantity,setTotalQuantity]=useState(0)
 
@@ -17,7 +18,7 @@ const Cart = () => {
   useEffect(()=>{
     setTotal(getTotalPrice())
     setTotalQuantity(getTotalQuantity())
-  },[])
+  },[cart])
 
   const[modal,setModal]=useState(false)
 
@@ -82,12 +83,20 @@ const Cart = () => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           ></textarea>
-
+          <label htmlFor="destinatario" className="text-sm font-medium text-gray-600">Introduzca nombre del destinatario</label>
+          <input
+            id="destinatario" 
+            type="text" 
+            placeholder="Destinatario"
+            value={destinatario}
+            onChange={(e) => setDestinatario(e.target.value)}
+            className="resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          />
           <button 
             onClick={()=>checkoutFunction()}
             className="mt-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-semibold rounded-lg py-3 shadow-lg transition duration-500"
           >
-            Checkout
+            Comprar
           </button>
         </div>
       ): ''}
@@ -96,7 +105,7 @@ const Cart = () => {
       {cart.length > 0 ? (
         cart.map((item) => (
           <CartCard 
-            key={item.id} 
+            key={item.$id} 
             item={item} 
           />
         ))

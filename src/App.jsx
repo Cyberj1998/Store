@@ -11,6 +11,9 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  const [category, setCategory] = useState('todo');
+
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
       <Router>
@@ -20,8 +23,8 @@ function App() {
             element={
               <>
                 <NavBar />
-                <Search />
-                <Shop />
+                <Search category={category} setCategory={setCategory} />
+                <Shop category={category} />
               </>
             }
           />

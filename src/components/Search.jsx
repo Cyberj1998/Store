@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 import SearchIcon from '../assets/images/search.png';
 import Burger from '../assets/images/burgerMenu.png';
 
-const Search = () => {
-  const [category, setCategory] = useState('All');
+const Search = ({ category, setCategory }) => {
 
   const categories = [
-    'All',
-    'Electronics',
-    'Fashion',
-    'Home & Garden',
-    'Sports',
-    'Beauty'
+    'todo',
+    'aseo',
+    'bebidas',
+    'carnicos',
+    'confituras',
+    'micelaneas'
   ];
 
   return (

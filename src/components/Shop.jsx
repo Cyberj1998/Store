@@ -1,15 +1,18 @@
 import ProductCard from "./ProductCard"
 import { useEffect, useState } from "react"
 import { Client, TablesDB, Query } from "appwrite"
+import useCartStore from "../store/CartSlice";
+import { useMemo } from "react";
 //-----------------appwrite credentials
 
 const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
 const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
 const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 
-const Shop = () => {
+const Shop = ({ category }) => {
 
-  const[products,setProducts]=useState([])
+  const databaseCache = useCartStore((state)=>state.databaseCache)
+  const addToCache = useCartStore((state)=>state.addToCache)
 
   //------------------------appwrite database code
 
@@ -22,20 +25,33 @@ const Shop = () => {
 
       const newRows = response.rows 
 
-      setProducts(newRows)
+      newRows.forEach(product => {
+        addToCache(product)
+      });
       console.log(newRows)
     } catch (error) {
       console.log(error);
     } 
   };
 
+  //--------------------use effect 
   useEffect(()=>{
-    handleCallRows()
+    if(databaseCache.length === 0){
+      handleCallRows()
+    }else{
+      return
+    }
   },[])
 
+  //--------------------use memo
+  const filteredProducts = useMemo(() => {
+    return databaseCache.filter((product) => product.category === category);
+  }, [databaseCache, category]);
+
+
   return (
-      <div className="w-full py-27 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-y-auto">
-        {products.map(product => (
+      <div className="w-full h-screen py-5 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-y-scroll">
+        {filteredProducts.map(product => (
           <ProductCard 
             key={product.$id}
             product={product}

@@ -10,7 +10,7 @@ const CartCard = ({ item }) => {
   const removeFromCart = useCartStore(state=>state.removeFromCart)
 
   return (  
-    <div className="rounded-2xl flex items-center justify-between p-4 m-2 w-[90%] max-w-xl max-md:h-50 relative shrink-0 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="rounded-2xl flex items-center justify-between p-4 m-2 w-[90%] max-w-[90%] max-md:h-50 relative shrink-0 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="flex flex-col items-center justify-center gap-2">
         <img 
           src={item.image} 
@@ -22,20 +22,20 @@ const CartCard = ({ item }) => {
         </p>
       </div>
 
-      <div className="flex w-fit items-center justify-evenly max-md:w-[40%] gap-2">
-        <button onClick={() => decreaseQuantity(item.id)} aria-label="decrease quantity">
+      <div className="flex borde-2 border-blue-600 w-50 items-center justify-evenly max-md:w-[40%] gap-2">
+        <button onClick={() => decreaseQuantity(item.$id)} aria-label="decrease quantity">
           <img 
             src={Minus} 
             alt="minus" 
-            className="bg-black rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
+            className="bg-[#424242] rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
           />
         </button>
-        <p className="text-lg max-md:text-xl font-semibold">{item.quantity}</p>
-        <button onClick={() => increaseQuantity(item.id)} aria-label="increase quantity">
+        <p className="text-2xl max-md:text-xl font-semibold">{item.quantity}</p>
+        <button onClick={() => increaseQuantity(item.$id)} aria-label="increase quantity">
           <img 
             src={Plus} 
             alt="plus" 
-            className="bg-black rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
+            className="bg-[#424242] rounded-full h-10 max-md:h-8 w-10 max-md:w-8 cursor-pointer p-1"
           />
         </button>
       </div>
@@ -45,7 +45,7 @@ const CartCard = ({ item }) => {
       </p>
 
       <button 
-        onClick={() => removeFromCart(item.id)} 
+        onClick={() => removeFromCart(item.$id)} 
         className="absolute top-2 right-2 cursor-pointer"
         aria-label="remove item"
       >
