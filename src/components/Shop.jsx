@@ -58,7 +58,9 @@ const Shop = ({ category, search }) => {
 
 
   return (
-      <div className="w-full h-screen py-5 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 overflow-y-scroll">
+    <div className="w-full h-screen overflow-y-auto py-5 mx-auto flex flex-col">
+      {/* The Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4">
         {filteredProducts.map(product => (
           <ProductCard 
             key={product.$id}
@@ -67,6 +69,15 @@ const Shop = ({ category, search }) => {
           />
         ))}
       </div>
+
+      {/* The Button Container */}
+      <div className="flex justify-center py-10">
+        <button className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
+          Cargar Mas...
+        </button>
+      </div>
+    </div>
+
   )
 }
 

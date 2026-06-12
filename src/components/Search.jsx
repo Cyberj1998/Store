@@ -21,8 +21,8 @@ const Search = ({ category, setCategory, setSearch, search }) => {
           
           {/* LOGO */}
           <div className="shrink-0 flex items-center">
-            <p className="text-2xl font-extrabold tracking-tighter text-gray-900 cursor-pointer">
-              STORE<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">FLOW</span>
+            <p className="text-2xl max-md:text-[9px] uppercase font-extrabold tracking-tighter text-gray-900 cursor-pointer">
+              Tienda<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">Online</span>
             </p>
           </div>
 

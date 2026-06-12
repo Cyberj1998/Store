@@ -1,4 +1,5 @@
 import useCartStore from "../store/CartSlice"
+import CartIcon from '../assets/images/cart.png'
 
 const ProductCard = ({ product }) => {
 
@@ -18,9 +19,10 @@ const ProductCard = ({ product }) => {
       </div>
       <button
         onClick={() => addToCart(product)}
-        className="w-full bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer"
+        className="w-full flex justify-center items-center bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer"
       >
-        Add to cart
+        Añadir al carrito
+        <img src={CartIcon} className="h-5 w-5" />
       </button>
     </div>
   )
