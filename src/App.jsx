@@ -13,6 +13,7 @@ import {
 function App() {
 
   const [category, setCategory] = useState('todo');
+  const[search,setSearch]=useState('')
 
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
@@ -23,8 +24,8 @@ function App() {
             element={
               <>
                 <NavBar />
-                <Search category={category} setCategory={setCategory} />
-                <Shop category={category} />
+                <Search category={category} setCategory={setCategory} setSearch={setSearch} search={search} />
+                <Shop category={category} search={search} />
               </>
             }
           />

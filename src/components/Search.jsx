@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import SearchIcon from '../assets/images/search.png';
 import Burger from '../assets/images/burgerMenu.png';
 
-const Search = ({ category, setCategory }) => {
+const Search = ({ category, setCategory, setSearch, search }) => {
 
   const categories = [
     'todo',
@@ -21,9 +21,9 @@ const Search = ({ category, setCategory }) => {
           
           {/* LOGO */}
           <div className="shrink-0 flex items-center">
-            <div className="text-2xl font-extrabold tracking-tighter text-blue-600 cursor-pointer">
-              STORE<span className="text-gray-900">FLOW</span>
-            </div>
+            <p className="text-2xl font-extrabold tracking-tighter text-gray-900 cursor-pointer">
+              STORE<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">FLOW</span>
+            </p>
           </div>
 
           {/* SEARCH & CATEGORY GROUP */}
@@ -57,28 +57,12 @@ const Search = ({ category, setCategory }) => {
               </div>
               <input
                 type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="block w-full h-10 pl-10 pr-3 py-2 border border-l-0 border-gray-200 bg-gray-100 rounded-r-md focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 sm:text-sm transition-all"
-                placeholder={`Search in ${category}...`}
+                placeholder={`buscar...`}
               />
             </div>
-          </div>
-
-          {/* DESKTOP ACTIONS (No Cart) */}
-          <div className="hidden md:flex items-center space-x-6">
-            <button className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-              Sign In
-            </button>
-          </div>
-
-          {/* MOBILE TOGGLE (Burger Menu) */}
-          <div className="md:hidden flex items-center">
-            <button className="p-2 hover:bg-gray-100 rounded-md transition-colors">
-              <img 
-                src={Burger} 
-                alt="menu" 
-                className="w-6 h-6 object-contain" 
-              />
-            </button>
           </div>
 
         </div>

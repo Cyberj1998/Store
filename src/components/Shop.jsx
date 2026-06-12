@@ -9,7 +9,7 @@ const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
 const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
 const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 
-const Shop = ({ category }) => {
+const Shop = ({ category, search }) => {
 
   const databaseCache = useCartStore((state)=>state.databaseCache)
   const addToCache = useCartStore((state)=>state.addToCache)
@@ -39,14 +39,22 @@ const Shop = ({ category }) => {
     if(databaseCache.length === 0){
       handleCallRows()
     }else{
+      console.log('check')
       return
     }
   },[])
 
   //--------------------use memo
   const filteredProducts = useMemo(() => {
-    return databaseCache.filter((product) => product.category === category);
-  }, [databaseCache, category]);
+    const categoryFiltered =
+      category === "todo"
+        ? databaseCache
+        : databaseCache.filter((item) => item.category === category);
+
+    return categoryFiltered.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [category, search, databaseCache]);
 
 
   return (
