@@ -13,6 +13,8 @@ const Shop = ({ category, search }) => {
 
   const databaseCache = useCartStore((state)=>state.databaseCache)
   const addToCache = useCartStore((state)=>state.addToCache)
+  const [offset, setOffset] = useState(0);
+  const LIMIT = 10;
 
   //------------------------appwrite database code
 
@@ -21,21 +23,30 @@ const Shop = ({ category, search }) => {
 
   const handleCallRows = async () => {
     try {
-      const response = await tablesDB.listRows(DATABASE_ID, "products");
+      const response = await tablesDB.listRows(
+        DATABASE_ID, 
+        "products", 
+        [
+          Query.limit(LIMIT),
+          Query.offset(offset)
+        ]
+      );
 
-      const newRows = response.rows 
+      const newRows = response.rows;
 
-      newRows.forEach(product => {
-        addToCache(product)
-      });
-      console.log(newRows)
+      if (newRows.length > 0) {
+        newRows.forEach(product => addToCache(product));
+        
+        setOffset(prev => prev + LIMIT);
+      }
+
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } 
   };
 
   //--------------------use effect 
-  useEffect(()=>{
+  useEffect(() => {
     if(databaseCache.length === 0){
       handleCallRows()
     }else{
@@ -59,7 +70,7 @@ const Shop = ({ category, search }) => {
 
   return (
     <div className="w-full h-screen overflow-y-auto py-5 mx-auto flex flex-col">
-      {/* The Grid */}
+     
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4">
         {filteredProducts.map(product => (
           <ProductCard 
@@ -70,9 +81,8 @@ const Shop = ({ category, search }) => {
         ))}
       </div>
 
-      {/* The Button Container */}
       <div className="flex justify-center py-10">
-        <button className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
+        <button onClick={()=>handleCallRows()} className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
           Cargar Mas...
         </button>
       </div>
