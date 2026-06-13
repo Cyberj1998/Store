@@ -11,6 +11,7 @@ const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 
 const Shop = ({ category, search }) => {
 
+  //------------------------states
   const databaseCache = useCartStore((state)=>state.databaseCache)
   const addToCache = useCartStore((state)=>state.addToCache)
   const [offset, setOffset] = useState(0);
@@ -20,8 +21,6 @@ const Shop = ({ category, search }) => {
 
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
   const tablesDB = new TablesDB(client);
-
-
   
   const handleCallRows = async (currentOffset = offset) => {
     try {
@@ -44,15 +43,42 @@ const Shop = ({ category, search }) => {
   };
 
 
-  
+
+  //----------------------psgination function
   const handlePagination = () => {
     const nextOffset = offset + LIMIT;
     setOffset(nextOffset);       
     handleCallRows(nextOffset);   
   };
 
+  //-------------------handle call rows by category
+
+  const handleCallByCategory = async (selectedCategory) => {
+    try {
+      const response = await tablesDB.listRows(DATABASE_ID, "products", [
+        Query.equal("category", selectedCategory), 
+      ]);
+
+      const newRows = response.rows;
+      newRows.forEach((product) => {
+        addToCache(product);
+        console.log(product);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCategory = async (category) => {
+    await handleCallByCategory(category);
+  };
+
 
   //--------------------use effect 
+
+  useEffect(()=>{
+    handleCategory(category)
+  },[category])
   
   useEffect(() => {
     if(databaseCache.length === 0){
