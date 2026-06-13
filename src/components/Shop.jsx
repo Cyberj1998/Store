@@ -21,39 +21,45 @@ const Shop = ({ category, search }) => {
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
   const tablesDB = new TablesDB(client);
 
-  const handleCallRows = async () => {
+
+  
+  const handleCallRows = async (currentOffset = offset) => {
     try {
       const response = await tablesDB.listRows(
         DATABASE_ID, 
         "products", 
         [
           Query.limit(LIMIT),
-          Query.offset(offset)
+          Query.offset(currentOffset) 
         ]
       );
 
       const newRows = response.rows;
-
       if (newRows.length > 0) {
         newRows.forEach(product => addToCache(product));
-        
-        setOffset(prev => prev + LIMIT);
       }
-
     } catch (error) {
       console.error(error);
     } 
   };
 
+
+  
+  const handlePagination = () => {
+    const nextOffset = offset + LIMIT;
+    setOffset(nextOffset);       
+    handleCallRows(nextOffset);   
+  };
+
+
   //--------------------use effect 
+  
   useEffect(() => {
     if(databaseCache.length === 0){
-      handleCallRows()
-    }else{
-      console.log('check')
-      return
+      handleCallRows(0); 
     }
-  },[])
+  }, []);
+
 
   //--------------------use memo
   const filteredProducts = useMemo(() => {
@@ -82,7 +88,7 @@ const Shop = ({ category, search }) => {
       </div>
 
       <div className="flex justify-center py-10">
-        <button onClick={()=>handleCallRows()} className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
+        <button onClick={()=>handlePagination()} className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
           Cargar Mas...
         </button>
       </div>
