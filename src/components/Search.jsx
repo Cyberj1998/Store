@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import SearchIcon from '../assets/images/search.png';
 import Burger from '../assets/images/burgerMenu.png';
 
-const Search = ({ category, setCategory, setSearch, search }) => {
+const Search = ({ category, setCategory, setSearch, search, handleCallBySearchName }) => {
 
   const categories = [
     'todo',
@@ -62,6 +62,16 @@ const Search = ({ category, setCategory, setSearch, search }) => {
                 className="block w-full h-10 pl-10 pr-3 py-2 border border-l-0 border-gray-200 bg-gray-100 rounded-r-md focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 sm:text-sm transition-all"
                 placeholder={`buscar...`}
               />
+              <button 
+                onClick={()=>handleCallBySearchName(search)}
+                className='bg-[#d1d1d1] rounded-full p-2 cursor-pointer m-2 hover:p-2.25'
+              >
+                <img 
+                  src={SearchIcon} 
+                  alt="buscar" 
+                  className='h-5 w-5'
+                />
+              </button>
             </div>
           </div>
 

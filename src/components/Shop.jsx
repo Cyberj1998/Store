@@ -73,7 +73,6 @@ const Shop = ({ category, search }) => {
     await handleCallByCategory(category);
   };
 
-
   //--------------------use effect 
 
   useEffect(()=>{
