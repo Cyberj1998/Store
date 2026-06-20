@@ -3,6 +3,12 @@ import CartCard from "./CartCard"
 import Delete from '../assets/images/delete.png'
 import { useState, useEffect } from "react"
 
+//-------------------appwrite credentials
+import { Client, TablesDB, Databases } from 'appwrite'
+const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
+const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
+const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
+
 const Cart = () => {
 
   const cart = useCartStore(state=>state.cart)
@@ -26,24 +32,37 @@ const Cart = () => {
     setModal(prev => !prev);
   }
 
-  const handleShareToWhatsApp = () => {
-    
-    const phoneNumber = '50219524'; 
-    
-    const messageItems = cart.map(item => {
-        return `${item.name}, Precio: ${item.price}, Cantidad: ${item.quantity}`;
-    }).join('\n');
+  //-----------------------------------handle insert order
 
-    const message = `${messageItems}\nTotal a pagar: ${total},  Direccion: ${address}`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+  const databases = new Databases(client);
+  const tablesDB = new TablesDB(client);
 
-    window.open(whatsappUrl, '_blank');
+
+  const handleInsertOrder = async (address, destinatario, total) => {
+    try {
+
+      const response = await databases.createDocument(DATABASE_ID, "orders", 'unique()', {
+        address: address,
+        receiver: destinatario,
+        products: JSON.stringify(cart),
+        code: Math.floor(100000 + Math.random() * 900000), 
+        total,
+      });
+
+      console.log('Order created:', response);
+      return response;
+
+    } catch (error) {
+      console.error('Order creation failed:', error);
+      throw error;
+    }
   };
 
-  const checkoutFunction = () => {
-    handleShareToWhatsApp()
+  const checkoutFunction = (address, destinatario, total ) => {
+    handleInsertOrder( address, destinatario, total )
     clearCart()
+    handleModal()
   }
 
   return (
@@ -93,7 +112,7 @@ const Cart = () => {
             className="resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
           />
           <button 
-            onClick={()=>checkoutFunction()}
+            onClick={()=>checkoutFunction( address, destinatario, total )}
             className="mt-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-semibold rounded-lg py-3 shadow-lg transition duration-500"
           >
             Comprar
