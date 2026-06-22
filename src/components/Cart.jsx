@@ -2,6 +2,7 @@ import useCartStore from "../store/CartSlice"
 import CartCard from "./CartCard"
 import Delete from '../assets/images/delete.png'
 import { useState, useEffect } from "react"
+import CodeModal from "./CodeModal"
 
 //-------------------appwrite credentials
 import { Client, TablesDB, Databases } from 'appwrite'
@@ -19,6 +20,9 @@ const Cart = () => {
   const[destinatario,setDestinatario]=useState('')
   const[total,setTotal]=useState(0)
   const[totalQuantity,setTotalQuantity]=useState(0)
+  const[modal,setModal]=useState(false)
+  const[modalCoede,setModalCode]=useState(false)
+  const[codeGeneratedRandom,setCodeGeneratedRandom]=useState(0)
 
 
   useEffect(()=>{
@@ -26,10 +30,13 @@ const Cart = () => {
     setTotalQuantity(getTotalQuantity())
   },[cart])
 
-  const[modal,setModal]=useState(false)
 
   const handleModal = () => {
     setModal(prev => !prev);
+  }
+
+  const  handleCodeModal = () => {
+    setModalCode(prev => !prev)
   }
 
   //-----------------------------------handle insert order
@@ -41,15 +48,16 @@ const Cart = () => {
 
   const handleInsertOrder = async (address, destinatario, total) => {
     try {
-
+      const newCode = Math.floor(100000 + Math.random() * 900000);
       const response = await databases.createDocument(DATABASE_ID, "orders", 'unique()', {
         address: address,
         receiver: destinatario,
         products: JSON.stringify(cart),
-        code: Math.floor(100000 + Math.random() * 900000), 
+        code: newCode, 
         total,
       });
 
+      setCodeGeneratedRandom(newCode);
       console.log('Order created:', response);
       return response;
 
@@ -61,8 +69,8 @@ const Cart = () => {
 
   const checkoutFunction = (address, destinatario, total ) => {
     handleInsertOrder( address, destinatario, total )
-    clearCart()
     handleModal()
+    handleCodeModal()
   }
 
   return (
@@ -119,6 +127,12 @@ const Cart = () => {
           </button>
         </div>
       ): ''}
+
+      {
+        modalCoede ? (
+          <CodeModal total={total} code={codeGeneratedRandom} setModalCode={setModalCode} />
+        ) : ''
+      }
 
 
       {cart.length > 0 ? (
