@@ -21,7 +21,7 @@ const Cart = () => {
   const[total,setTotal]=useState(0)
   const[totalQuantity,setTotalQuantity]=useState(0)
   const[modal,setModal]=useState(false)
-  const[modalCoede,setModalCode]=useState(false)
+  const[modalCode,setModalCode]=useState(false)
   const[codeGeneratedRandom,setCodeGeneratedRandom]=useState(0)
 
 
@@ -129,7 +129,7 @@ const Cart = () => {
       ): ''}
 
       {
-        modalCoede ? (
+        modalCode ? (
           <CodeModal total={total} code={codeGeneratedRandom} setModalCode={setModalCode} />
         ) : ''
       }
