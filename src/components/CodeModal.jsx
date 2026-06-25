@@ -48,7 +48,7 @@ const CodeModal = ({ total, code, setModalCode }) => {
             </div>
             <div>
               <p className="text-sm text-gray-500">Código de su compra</p>
-              <p className="text-lg font-semibold text-gray-900">{code}</p>
+              <p className="text-lg font-semibold text-gray-900">{code === 0 ? 'Generando Codigo Por Favor Espere' : code}</p>
             </div>
           </div>
 
