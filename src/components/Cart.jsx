@@ -47,6 +47,10 @@ const Cart = () => {
 
 
   const handleInsertOrder = async (address, destinatario, total) => {
+    if (!address || !destinatario) {
+      alert('Defina una dirección y un destinatario');
+      return;
+    }
     try {
       const newCode = Math.floor(100000 + Math.random() * 900000);
       const response = await databases.createDocument(DATABASE_ID, "orders", 'unique()', {
