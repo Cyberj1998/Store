@@ -49,7 +49,7 @@ const Cart = () => {
   const handleInsertOrder = async (address, destinatario, total) => {
     if (!address || !destinatario) {
       alert('Defina una dirección y un destinatario');
-      return;
+      return null;
     }
     try {
       const newCode = Math.floor(100000 + Math.random() * 900000);
@@ -71,11 +71,17 @@ const Cart = () => {
     }
   };
 
-  const checkoutFunction = (address, destinatario, total ) => {
-    handleInsertOrder( address, destinatario, total )
-    handleModal()
-    handleCodeModal()
-  }
+  const checkoutFunction = async (address, destinatario, total) => {
+    try {
+      const result = await handleInsertOrder(address, destinatario, total);
+      if (result) {
+        handleModal();
+        handleCodeModal();
+      }
+    } catch (error) {
+      console.error('Checkout failed:', error);
+    }
+  };
 
   return (
     <div className="h-screen w-full flex flex-col items-center overflow-y-auto pt-16 space-y-4 px-2">
