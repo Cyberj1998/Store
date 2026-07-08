@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Client, TablesDB, Query } from "appwrite"
 import useCartStore from "../store/CartSlice";
 import { useMemo } from "react";
+//import products from '../constants/products'
 //-----------------appwrite credentials
 
 const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;

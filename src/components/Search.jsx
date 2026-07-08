@@ -11,7 +11,8 @@ const Search = ({ category, setCategory, setSearch, search, handleCallBySearchNa
     'bebidas',
     'carnicos',
     'confituras',
-    'micelaneas'
+    'micelaneas',
+    'electrodomesticos'
   ];
 
   return (
