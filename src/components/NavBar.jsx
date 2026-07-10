@@ -26,7 +26,7 @@ const NavBar = () => {
           className="h-12 w-12 object-contain bg-gray-400 rounded-full"
         />
         <p className="font-bold text-[15px]">
-          Super <span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">MM</span>
+          Tecno<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">Tienda</span>
         </p>
       </div>
 

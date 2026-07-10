@@ -31,7 +31,7 @@ function App() {
 
   const handleCallBySearchName = async (search) => {
     try {
-      const response = await tablesDB.listRows(DATABASE_ID, "products", [
+      const response = await tablesDB.listRows(DATABASE_ID, "techProducts", [
         Query.startsWith("name", search), 
       ]);
   

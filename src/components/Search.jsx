@@ -7,12 +7,9 @@ const Search = ({ category, setCategory, setSearch, search, handleCallBySearchNa
 
   const categories = [
     'todo',
-    'aseo',
-    'bebidas',
-    'carnicos',
-    'confituras',
-    'micelaneas',
-    'electrodomesticos'
+    'Kits Solares',
+    'Smartphones',
+    'Accesorios',
   ];
 
   return (

@@ -27,7 +27,7 @@ const Shop = ({ category, search }) => {
     try {
       const response = await tablesDB.listRows(
         DATABASE_ID, 
-        "products", 
+        "techProducts", 
         [
           Query.limit(LIMIT),
           Query.offset(currentOffset) 
@@ -56,7 +56,7 @@ const Shop = ({ category, search }) => {
 
   const handleCallByCategory = async (selectedCategory) => {
     try {
-      const response = await tablesDB.listRows(DATABASE_ID, "products", [
+      const response = await tablesDB.listRows(DATABASE_ID, "techProducts", [
         Query.equal("category", selectedCategory), 
       ]);
 
