@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Client, TablesDB, Query } from "appwrite"
 import useCartStore from "../store/CartSlice";
 import { useMemo } from "react";
+import Waves from '../assets/images/wave.svg'
 //import products from '../constants/products'
 //-----------------appwrite credentials
 
@@ -101,9 +102,9 @@ const Shop = ({ category, search }) => {
 
 
   return (
-    <div className="w-full h-screen overflow-y-auto py-5 mx-auto flex flex-col">
+    <div className="w-full min-h-screen relative overflow-y-auto py-5 mx-auto flex flex-col">
      
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 z-10">
         {filteredProducts.length != 0 ? filteredProducts.map(product => (
           <ProductCard 
             key={product.$id}
@@ -113,11 +114,16 @@ const Shop = ({ category, search }) => {
         )) : <p className="text-blue-400 text-[20px] relative">Cargando...</p>}
       </div>
 
-      <div className="flex justify-center py-10">
+      <div className="flex justify-center py-5 z-10">
         <button onClick={()=>handlePagination()} className="bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white py-3 rounded-xl font-medium shadow-md transition duration-500 active:scale-95 cursor-pointer h-12.5 w-80">
           Cargar Mas...
         </button>
       </div>
+      <img 
+        src={Waves} 
+        alt="waves" 
+        className="absolute bottom-0 w-full"
+      />
     </div>
 
   )

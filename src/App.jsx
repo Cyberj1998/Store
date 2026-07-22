@@ -2,9 +2,13 @@ import './App.css'
 import { useState } from 'react'
 import NavBar from './components/NavBar'
 import Shop from './components/Shop'
+import MainBanner from './components/MainBanner'
+import BentoGrid from './components/BentoGrid'
+import MostPopular from './components/MostPopular'
 import Cart from './components/Cart'
 import Search from './components/Search'
 import AdminPage from './components/AdminPage'
+import Footer from './components/footer'
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,6 +25,7 @@ const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 function App() {
 
   const addToCache = useCartStore((state)=>state.addToCache)
+  const addToPopulars = useCartStore((state)=>state.addToPopulars) 
   const [category, setCategory] = useState('todo');
   const[search,setSearch]=useState('')
 
@@ -29,6 +34,7 @@ function App() {
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
   const tablesDB = new TablesDB(client);
 
+  //----------------------------call products by search name
   const handleCallBySearchName = async (search) => {
     try {
       const response = await tablesDB.listRows(DATABASE_ID, "products", [
@@ -45,6 +51,24 @@ function App() {
     }
   };
 
+  //------------------------------call most popular products
+  const handleCallPopulars = async () => {
+    try {
+      const response = await tablesDB.listRows(DATABASE_ID, "products", [
+        Query("popular", true),
+      ]);
+      const newRows = response.rows;
+      const currentIds = get().popularProducts.map(p => p.$id);
+      const uniqueNew = newRows.filter(p => !currentIds.includes(p.$id));
+      if (uniqueNew.length > 0) {
+        set({ popularProducts: [...get().popularProducts, ...uniqueNew] });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
       <Router>
@@ -53,9 +77,15 @@ function App() {
             path='/'
             element={
               <>
-                <NavBar />
-                <Search category={category} setCategory={setCategory} setSearch={setSearch} search={search} handleCallBySearchName={handleCallBySearchName} />
-                <Shop category={category} search={search} />
+                <div className='overflow-y-scroll w-full'>
+                  <NavBar />
+                  <Search category={category} setCategory={setCategory} setSearch={setSearch} search={search} handleCallBySearchName={handleCallBySearchName} />
+                  <MainBanner />
+                  <BentoGrid />
+                  <MostPopular handleCallPopulars={handleCallPopulars} />
+                  <Shop category={category} search={search} />
+                  <Footer />
+                </div>
               </>
             }
           />

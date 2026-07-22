@@ -3,6 +3,7 @@ import { create } from "zustand";
 const useCartStore = create((set, get)=>({
     cart: [],
     databaseCache: [],
+    popularProducts: [],
 
     //---------------add to cache
     addToCache: (product) => {
@@ -11,6 +12,16 @@ const useCartStore = create((set, get)=>({
 
       if (!exists) {
         set({ databaseCache: [...cache, product] });
+      }
+    },
+
+    //---------------add to populars
+    addToPopulars: (product) => {
+      const cache = get().popularProducts;
+      const exists = cache.find((item) => item.$id === product.$id);
+
+      if (!exists) {
+        set({ popularProducts: [...cache, product] });
       }
     },
 
