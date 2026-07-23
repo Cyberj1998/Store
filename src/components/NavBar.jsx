@@ -10,7 +10,6 @@ const NavBar = () => {
 
   return ( 
     <nav className="top-0 left-0 w-full bg-[#4a4e65] h-16 sm:h-20 flex items-center justify-between px-4 sm:px-6 z-50">
-      {/* LEFT: Shop icon + "Tienda" text */}
       <Link to="/" className="flex items-center gap-1 sm:gap-2">
         <div className="bg-yellow-300 h-10 sm:h-12 w-10 sm:w-12 rounded-full flex justify-center items-center shrink-0">
           <img 
