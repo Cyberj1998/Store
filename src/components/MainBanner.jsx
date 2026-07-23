@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import Banner from '../assets/images/promos/banner-1.jpg';
-import Banner2 from '../assets/images/promos/banner-2.jpg';
+import Banner from '../assets/images/promos/banner-1-version2.png';
+import Banner2 from '../assets/images/promos/banner-2-version2.png';
 import LeftArrow from '../assets/images/left.png';
 import RightArrow from '../assets/images/right.png';
 
@@ -36,7 +36,7 @@ const MainBanner = () => {
             <img
               src={banner}
               alt={`promo-${index}`}
-              className="w-full h-full object-cover rounded-2xl"
+              className="w-full h-full object-fill rounded-2xl"
             />
           </div>
         ))}
