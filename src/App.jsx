@@ -55,14 +55,14 @@ function App() {
   const handleCallPopulars = async () => {
     try {
       const response = await tablesDB.listRows(DATABASE_ID, "products", [
-        Query("popular", true),
+        Query.equal("popular", true),
       ]);
+
       const newRows = response.rows;
-      const currentIds = get().popularProducts.map(p => p.$id);
-      const uniqueNew = newRows.filter(p => !currentIds.includes(p.$id));
-      if (uniqueNew.length > 0) {
-        set({ popularProducts: [...get().popularProducts, ...uniqueNew] });
-      }
+      newRows.forEach((product) => {
+        addToPopulars(product);
+        console.log(product);
+      });
     } catch (error) {
       console.log(error);
     }

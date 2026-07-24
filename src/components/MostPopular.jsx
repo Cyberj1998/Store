@@ -19,6 +19,7 @@ const MostPopular = ({handleCallPopulars}) => {
           <PopularCard 
             key={index}
             index={index}
+            product={product}
           />
         ))}
       </div>

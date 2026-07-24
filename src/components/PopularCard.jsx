@@ -4,26 +4,26 @@ import useCartStore from '../store/CartSlice'
 import TestImage from '../assets/images/promos/bentoPromo-1.jpg'
 import Background from '../assets/images/backgroundPopularCard.jpg'
 
-const PopularCard = ({ index }) => {
+const PopularCard = ({ index, product }) => {
 
   const addToCart = useCartStore(state=>state.addToCart) 
 
   return (
-    <div className={`w-70 relative md:w-60 max-md:w-70 max-sm:w-45 h-auto max-md:h-auto bg-white p-4 flex flex-col items-center gap-4 rounded-3xl m-3 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300 ${index === 1 ? '-mt-5' : ''}`}>
+    <div className={`w-70 max-md:w-55 relative h-auto bg-white p-4 flex flex-col shrink-0 items-center gap-4 rounded-3xl m-3 border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300 ${index === 1 ? '-mt-5' : ''}`}>
       <img 
         src={Background} 
         alt="background"
-        className='absolute object-cover h-full w-full rounded-2xl top-0 left-0' 
+        className='absolute object-cover h-full w-full rounded-2xl top-0 left-0 opacity-90' 
       />
       <img 
-        src={TestImage}
+        src={product.image}
         className="h-50 w-50 max-md:h-40 max-md:w-40 rounded-2xl z-10"
         alt="product image" 
       />
       <div className="flex flex-col gap-3 w-full text-center max-md:text-left z-10">
-        <h3 className="text-2xl max-md:text-[25px] font-semibold text-white truncate">Product Name</h3>
-        <span className="text-[12px] text-[#c9c9c9]">category</span>
-        <span className="text-xl font-bold text-green-400">$500</span>
+        <h3 className="text-2xl max-md:text-[25px] font-semibold text-white truncate">{product.name}</h3>
+        <span className="text-[12px] text-[#c9c9c9]">{product.category}</span>
+        <span className="text-xl font-bold text-green-400">${product.price}</span>
       </div>
       <button
         onClick={() => addToCart(product)}
