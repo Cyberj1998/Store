@@ -8,7 +8,7 @@ import MostPopular from './components/MostPopular'
 import Cart from './components/Cart'
 import Search from './components/Search'
 import AdminPage from './components/AdminPage'
-import Footer from './components/footer'
+import Footer from './components/Footer'
 import {
   BrowserRouter as Router,
   Routes,
@@ -50,6 +50,7 @@ function App() {
       console.log(error);
     }
   };
+
 
   //------------------------------call most popular products
   const handleCallPopulars = async () => {

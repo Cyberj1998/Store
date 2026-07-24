@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from "../store/CartSlice"
 import Shop from '../assets/images/shop.png'
-import ShopIcon from '../assets/images/shopLogo.png'
+import ShopIcon from '../assets/images/Logo.png'
 
 const NavBar = () => {
 
@@ -24,14 +24,14 @@ const NavBar = () => {
       </Link>
 
       {/* CENTER: Logo + "SuperMM" */}
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-row items-center justify-center">
         <img 
           src={ShopIcon} 
           alt="Logo" 
-          className="h-10 sm:h-12 w-10 sm:w-12 object-contain bg-gray-400 rounded-full"
+          className="h-15 max-md:h-12 w-15 max-md:w-12 m-2 bg-yellow-300 rounded-[100%]"
         />
-        <p className="font-bold text-xs sm:text-[15px] text-white">
-          Super<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#246ae3] to-[#8af7e1]">MM</span>
+        <p className="hidden sm:flex font-bold text-xs sm:text-[15px] text-white">
+          Super<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">MM</span>
         </p>
       </div>
 

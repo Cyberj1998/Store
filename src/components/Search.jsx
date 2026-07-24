@@ -69,7 +69,7 @@ const Search = ({ category, setCategory, setSearch, search, handleCallBySearchNa
           {/* LOGO - hidden on mobile, visible from sm/medium up */}
           <div className="hidden sm:flex shrink-0 items-center ml-2">
             <p className="text-xl md:text-2xl uppercase font-extrabold tracking-tighter text-[#d9d9d9] cursor-pointer whitespace-nowrap">
-              Tienda<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#246ae3] to-[#8af7e1]">Online</span>
+              Tienda<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">Online</span>
             </p>
           </div>
 
