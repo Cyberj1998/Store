@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from "../store/CartSlice"
 import Shop from '../assets/images/shop.png'
-import NewLogo from '../assets/images/Logo-3d.png'
+import NewLogo from '../assets/images/logo-3d.png'
 
 const NavBar = () => {
 
