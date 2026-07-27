@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from "../store/CartSlice"
 import Shop from '../assets/images/shop.png'
-import ShopIcon from '../assets/images/Logo-3d.png'
+import NewLogo from '../assets/images/Logo-3d.png'
 
 const NavBar = () => {
 
@@ -26,7 +26,7 @@ const NavBar = () => {
       {/* CENTER: Logo + "SuperMM" */}
         <div className="flex flex-col relative">
           <img 
-            src={ShopIcon} 
+            src={NewLogo} 
             alt="Logo" 
             className="h-10 max-md:h-8 w-15 max-md:w-15"
           />
