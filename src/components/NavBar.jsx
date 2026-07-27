@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from "../store/CartSlice"
 import Shop from '../assets/images/shop.png'
-import ShopIcon from '../assets/images/Logo.png'
+import ShopIcon from '../assets/images/Logo-3d.png'
 
 const NavBar = () => {
 
@@ -24,17 +24,17 @@ const NavBar = () => {
       </Link>
 
       {/* CENTER: Logo + "SuperMM" */}
-      <div className="flex flex-row items-center justify-center">
-        <img 
-          src={ShopIcon} 
-          alt="Logo" 
-          className="h-15 max-md:h-12 w-15 max-md:w-12 m-2 bg-yellow-300 rounded-[100%]"
-        />
-        <p className="hidden sm:flex font-bold text-xs sm:text-[15px] text-white">
-          Super<span className="text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]">MM</span>
-        </p>
-      </div>
+        <div className="flex flex-col relative">
+          <img 
+            src={ShopIcon} 
+            alt="Logo" 
+            className="h-10 max-md:h-8 w-15 max-md:w-15"
+          />
+          <p className="uppercase text-[10px] text-white font-semibold">CyberTienda</p>
+          <div className="h-10 w-10 absolute backdrop-blur-xs -left-5 -top-1 rounded-full shadow-lg border border-white/20">
 
+          </div>
+        </div>
       {/* RIGHT: Cart icon + "Carrito" text + badge */}
       <Link 
         to="/cart" 

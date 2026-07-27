@@ -12,7 +12,7 @@ const Footer = () => {
           className='h-7 w-7 m-2'
         />
       </div>
-      <p className='text-[#bfbfbf] font-sans text-[15px] max-md:text-[12px]'>1ra del oeste entre carretera central y primera del sur</p>
+      <p className='text-[#bfbfbf] font-sans text-[15px] max-md:text-[12px]'>6ta del oeste entre carretera central y primera del sur</p>
       <div className='flex justify-center items-center flex-row'>
         <h1 className='uppercase text-white font-semibold text-[20px] max-md:text-[15px]'>contacto</h1>
         <img 
