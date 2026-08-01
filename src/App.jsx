@@ -1,5 +1,6 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { clsx } from 'clsx'
 import NavBar from './components/NavBar'
 import Shop from './components/Shop'
 import MainBanner from './components/MainBanner'
@@ -9,10 +10,12 @@ import Cart from './components/Cart'
 import Search from './components/Search'
 import AdminPage from './components/AdminPage'
 import Footer from './components/Footer'
+import CartIcon from './assets/images/cart.png'
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 import useCartStore from './store/CartSlice'
 
@@ -26,6 +29,7 @@ function App() {
 
   const addToCache = useCartStore((state)=>state.addToCache)
   const addToPopulars = useCartStore((state)=>state.addToPopulars) 
+  const quantity = useCartStore(state => state.cart.reduce((total, product) => total + product.quantity, 0))
   const [category, setCategory] = useState('todo');
   const[search,setSearch]=useState('')
 
@@ -69,6 +73,22 @@ function App() {
     }
   };
 
+  //-------------------scroll logic
+  const[hasScroll,setHasScroll]=useState(false)
+
+  //----------------useEffect for scrolling logic
+  useEffect(()=>{
+    const handleScroll = () => {
+      setHasScroll(window.scrollY > 10 )
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  },[])
+
 
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
@@ -80,6 +100,18 @@ function App() {
               <>
                 <div className='overflow-y-scroll w-full'>
                   <NavBar />
+                  <button className={clsx('h-15 w-15 m-5 mr-8 rounded-full border border-white absolute z-100 bg-yellow-300 flex justify-center items-center cursor-pointer bottom-0 right-0 transition-all duration-100 ease-in-out', hasScroll && 'h-50')}>
+                    <Link to='/cart'>
+                      <img 
+                        src={CartIcon}
+                        alt="cart icon"
+                        className='object-contain h-10 w-10 z-50' 
+                      />
+                      <div className='bg-yellow-300 h-8 w-8 absolute -top-3 -right-3 rounded-full flex justify-center items-center'>
+                        <p className='font-bold text-[15px]'>{quantity}</p>
+                      </div>
+                    </Link>
+                  </button>
                   <Search category={category} setCategory={setCategory} setSearch={setSearch} search={search} handleCallBySearchName={handleCallBySearchName} />
                   <MainBanner />
                   <BentoGrid />

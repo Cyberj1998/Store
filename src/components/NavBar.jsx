@@ -30,7 +30,7 @@ const NavBar = () => {
             alt="Logo" 
             className="h-10 max-md:h-8 w-15 max-md:w-15"
           />
-          <p className="uppercase text-[10px] text-white font-semibold">CyberTienda</p>
+          <p className="uppercase text-[10px] text-white font-semibold">Cybertienda</p>
           <div className="h-10 w-10 absolute backdrop-blur-xs -left-5 -top-1 rounded-full shadow-lg border border-white/20">
 
           </div>

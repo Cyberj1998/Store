@@ -26,7 +26,7 @@ const useCartStore = create((set, get)=>({
     },
 
 
-    //-----------------add to cart
+    //-----------------------------add to cart
 
     addToCart: (product) => {
         const cart = get().cart
@@ -72,7 +72,7 @@ const useCartStore = create((set, get)=>({
         })
     },
 
-    //---------get total quantity
+    //---------------------get total quantity
 
     getTotalQuantity: () => {
         return get().cart.reduce((total, product)=>total + product.quantity, 0)
