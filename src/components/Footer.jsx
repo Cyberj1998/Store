@@ -1,5 +1,6 @@
 import LocationIcon from '../assets/images/location.svg'
 import ContactIcon from '../assets/images/contact.svg'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -22,6 +23,9 @@ const Footer = () => {
         />
       </div>
       <p className='text-[#bfbfbf] font-sans text-[15px] max-md:text-[12px]'>+53 50219524</p>
+      <Link to='/admin'>
+        <p className='text-indigo-300'>Panel de Administrador</p>
+      </Link>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import deleteIcon from '../assets/images/delete.png'
+import AuthForm from './AuthForm';
 
 //-------------------appwrite credentials
 import { Query } from 'appwrite';
@@ -86,21 +87,55 @@ const AdminPage = () => {
     handleCallOrders()
   },[])
 
+  //-------------------------------auth verification
+  const[authenticated,setAuthenticated]=useState(true)
+
+
   return (
-    <div className='h-screen overflow-y-scroll w-full flex justify-start items-center flex-col'>
-      <div className='flex flex-col justify-center items-center'>
-        <label htmlFor="code" className="text-sm font-medium text-gray-600">Introduzca codigo de confirmacion</label>
-        <input
-          id="code" 
-          type="text" 
-          placeholder="Destinatario"
-          value={codeToVerify}
-          onChange={(e) => setCodeToVerify(e.target.value)}
-          className="resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-        />
-        <button onClick={()=>handleVerifyPayment(codeToVerify)} className='className="mt-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-semibold rounded-lg py-3 shadow-lg transition duration-500" w-45 m-3'>
-          Verificar
-        </button>
+    <>
+    {
+      authenticated ? (
+        <div className='h-screen overflow-y-scroll w-full flex justify-start items-center flex-col'>
+      <div className="flex flex-col mt-5 w-full max-w-sm mx-auto p-6 bg-white rounded-2xl shadow-xl border border-gray-100">
+        {/* Header/Label Section */}
+        <div className="mb-6 text-center">
+          <label 
+            htmlFor="code" 
+            className="block text-lg font-semibold text-gray-800"
+          >
+            Confirmación de Pago
+          </label>
+          <p className="text-sm text-gray-500 mt-1">
+            Introduzca el código recibido para verificar
+          </p>
+        </div>
+
+        {/* Input Group */}
+        <div className="space-y-4">
+          <div className="relative">
+            <input
+              id="code"
+              type="text"
+              placeholder="Ej: 123456"
+              value={codeToVerify}
+              onChange={(e) => setCodeToVerify(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-center tracking-[0.5em] font-mono focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 outline-none"
+            />
+          </div>
+
+          {/* Action Button */}
+          <button
+            onClick={() => handleVerifyPayment(codeToVerify)}
+            className="w-full py-3.5 px-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-bold rounded-xl shadow-md hover:shadow-lg transform active:scale-[0.98] transition-all duration-300"
+          >
+            Verificar ahora
+          </button>
+        </div>
+
+        {/* Optional Footer/Help text */}
+        <p className="mt-4 text-center text-xs text-gray-400">
+          Verificacion de pago en <span className="text-indigo-500">linea</span>
+        </p>
       </div>
       {
         orders.map((order) => (
@@ -149,6 +184,9 @@ const AdminPage = () => {
         ))
       }
     </div>
+      ) : <AuthForm />
+    }
+    </>
   )
 }
 
