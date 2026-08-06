@@ -4,7 +4,7 @@ import { Client, TablesDB, Query } from "appwrite"
 import useCartStore from "../store/CartSlice";
 import { useMemo } from "react";
 import Waves from '../assets/images/wave.svg'
-//import products from '../constants/products'
+import products from '../constants/products'
 //-----------------appwrite credentials
 
 const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
@@ -105,7 +105,7 @@ const Shop = ({ category, search }) => {
     <div className="w-full min-h-screen relative overflow-y-auto py-5 mx-auto flex flex-col">
      
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 z-10">
-        {filteredProducts.length != 0 ? filteredProducts.map(product => (
+        {products.length != 0 ? products.map(product => (
           <ProductCard 
             key={product.$id}
             product={product}

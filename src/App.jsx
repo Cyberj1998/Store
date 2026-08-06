@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { clsx } from 'clsx'
 import NavBar from './components/NavBar'
 import Shop from './components/Shop'
@@ -73,22 +73,6 @@ function App() {
     }
   };
 
-  //-------------------scroll logic
-  const[hasScroll,setHasScroll]=useState(false)
-
-  //----------------useEffect for scrolling logic
-  useEffect(()=>{
-    const handleScroll = () => {
-      setHasScroll(window.scrollY > 10 )
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  },[])
-
 
   return (
     <section className='main-wrapper h-screen w-full flex flex-col justify-center items-center'>
@@ -100,7 +84,7 @@ function App() {
               <>
                 <div className='overflow-y-scroll w-full'>
                   <NavBar />
-                  <button className={clsx('h-15 w-15 m-5 mr-8 rounded-full border border-white absolute z-100 bg-yellow-300 flex justify-center items-center cursor-pointer bottom-0 right-0 transition-all duration-100 ease-in-out', hasScroll && 'h-50')}>
+                  <button className={clsx('h-15 w-15 m-5 mr-8 rounded-full border border-white absolute z-100 bg-yellow-300 flex justify-center items-center cursor-pointer bottom-0 right-0 transition-all duration-100 ease-in-out')}>
                     <Link to='/cart'>
                       <img 
                         src={CartIcon}
