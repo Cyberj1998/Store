@@ -88,7 +88,7 @@ const AdminPage = () => {
   },[])
 
   //-------------------------------auth verification
-  const[authenticated,setAuthenticated]=useState(true)
+  const[authenticated,setAuthenticated]=useState(false)
 
 
   return (
@@ -184,7 +184,7 @@ const AdminPage = () => {
         ))
       }
     </div>
-      ) : <AuthForm />
+      ) : <AuthForm setAuthenticated={setAuthenticated} />
     }
     </>
   )
