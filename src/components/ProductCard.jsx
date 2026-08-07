@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
       </div>
       <button
         onClick={() => addToCart(product)}
-        className="w-full max-md:text-[12px] h-12 flex justify-center items-center bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-xl font-medium max-md:font-sans shadow-md transition duration-500 active:scale-95 cursor-pointer"
+        className="w-full max-md:text-[12px] max-sm:text-[10px] h-12 flex justify-center items-center bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-xl font-medium max-md:font-sans shadow-md transition duration-500 active:scale-95 cursor-pointer"
       >
         Añadir al carrito
         <img src={CartIcon} className="h-5 w-5 ml-2" />

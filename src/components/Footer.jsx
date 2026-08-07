@@ -22,9 +22,10 @@ const Footer = () => {
           className='h-6 w-6 m-2'
         />
       </div>
+      <span className="text-sm text-indigo-400">La marca del producto esta sujeta a cambios</span>
       <p className='text-[#bfbfbf] font-sans text-[15px] max-md:text-[12px]'>+53 50219524</p>
       <Link to='/admin'>
-        <p className='text-indigo-300'>Panel de Administrador</p>
+        <p className='text-indigo-400'>Panel de Administrador</p>
       </Link>
     </div>
   )

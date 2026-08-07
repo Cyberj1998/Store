@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import Banner from '../assets/images/promos/banner-1-version2.png';
-import Banner2 from '../assets/images/promos/banner-2-version2.png';
+import Banner from '../assets/images/promos/banner-1.png';
+import Banner2 from '../assets/images/promos/banner-2.png';
+import Banner3 from '../assets/images/promos/banner-3.png'
 import LeftArrow from '../assets/images/left.png';
 import RightArrow from '../assets/images/right.png';
 
 const MainBanner = () => {
-  const Banners = [Banner, Banner2];
+  const Banners = [Banner, Banner2, Banner3];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Auto-rotate every 8 seconds
