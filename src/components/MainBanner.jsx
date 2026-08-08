@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import Banner from '../assets/images/promos/banner-1.png';
-import Banner2 from '../assets/images/promos/banner-2.png';
-import Banner3 from '../assets/images/promos/banner-3.png'
+import Banner from '../assets/images/promos/banner-1-low-size.png';
+import Banner2 from '../assets/images/promos/banner-2-low-size.png';
+import Banner3 from '../assets/images/promos/banner-3-low-size.png'
 import LeftArrow from '../assets/images/left.png';
 import RightArrow from '../assets/images/right.png';
 
