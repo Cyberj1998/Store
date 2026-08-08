@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   const addToCart = useCartStore(state=>state.addToCart) 
 
   return ( 
-    <div className="w-full h-auto bg-white p-4 flex flex-col items-center gap-4 rounded-3xl border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="w-full h-auto bg-white p-3 flex flex-col items-center gap-1 rounded-3xl border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
       <img
         src={product.image}
         alt={product.name}

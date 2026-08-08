@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import Shop from './components/Shop'
 import MainBanner from './components/MainBanner'
 import BentoGrid from './components/BentoGrid'
+import Scene from './components/Scene'
 import MostPopular from './components/MostPopular'
 import Cart from './components/Cart'
 import Search from './components/Search'
@@ -98,7 +99,7 @@ function App() {
                   </button>
                   <Search category={category} setCategory={setCategory} setSearch={setSearch} search={search} handleCallBySearchName={handleCallBySearchName} />
                   <MainBanner />
-                  <BentoGrid />
+                  <Scene />
                   <MostPopular handleCallPopulars={handleCallPopulars} />
                   <Shop category={category} search={search} />
                   <Footer />
