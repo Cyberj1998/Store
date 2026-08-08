@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Client, Account } from 'appwrite'
 
 const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
@@ -11,20 +11,50 @@ const client = new Client()
 export const account = new Account(client);
 
 const AuthForm = ({ setAuthenticated }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+
+  //--------------------handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
+
     try {
-      await account.createEmailPasswordSession(email, password); // ← fixed method
+      await account.createEmailPasswordSession(email, password);
       setAuthenticated(true);
     } catch (err) {
-      setError(err?.message || 'Error al iniciar sesión');
+     
+      if (err.message.includes("session is active")) {
+
+        setAuthenticated(true);
+      } else {
+        setError(err?.message || 'Error al iniciar sesión');
+      }
+    } finally {
+      setLoading(false);
     }
   };
+
+
+  //------------use effect to check if the session is open
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await account.get();
+        setAuthenticated(true);
+      } catch (err) {
+
+        console.log("No active session found.");
+      }
+    };
+    checkSession();
+  }, [setAuthenticated]);
+
 
   return (
     <div className="flex flex-col w-full max-w-sm h-screen mx-auto p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
@@ -69,7 +99,7 @@ const AuthForm = ({ setAuthenticated }) => {
 
         <button
           type="submit"
-          className="w-full py-3.5 px-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-bold rounded-xl shadow-md hover:shadow-lg transform active:scale-[0.98] transition-all duration-300 mt-2"
+          className="w-full py-3.5 px-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-bold rounded-xl shadow-md hover:shadow-lg transform active:scale-[0.98] transition-all duration-300 mt-2"
         >
           Iniciar Sesión
         </button>
