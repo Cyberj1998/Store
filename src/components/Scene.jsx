@@ -14,6 +14,8 @@ import { Float } from '@react-three/drei'
 
 const Scene = () => {
 
+  //-------------------------adjust size and position for screen sizes
+
   const [activeModel] = useState(() => (Math.random() > 0.5 ? 'model1' : 'model2'))
 
   const adjustScreen = () => {
@@ -33,6 +35,30 @@ const Scene = () => {
 
 
   const [ModelScale, ModelPosition, Modelrotation] = adjustScreen()
+
+
+  //-------------------array for the cards
+  const cards = [
+    {
+      id: 0,
+      icon: Icon1,
+      title: 'rapidez',
+      subtitle: 'los envios se entregan en menos de 48 horas',
+    },
+    {
+      id: 1,
+      icon: Icon2,
+      title: 'pago',
+      subtitle: 'metodo de pago sencillo y rapido por zelle',
+    },
+    {
+      id: 2,
+      icon: Icon3,
+      title: 'seguridad',
+      subtitle: 'atencion al cliente para su tranquilidad',
+    }
+  ]
+
 
   return (
     <div className='h-120 w-full overflow-visible flex flex-row justify-center items-center'>
@@ -68,15 +94,15 @@ const Scene = () => {
 
       <div className='hidden md:flex h-full w-full sm:w-[50%] flex-col justify-center items-center p-4 gap-4'>
         {/* Card Component Pattern */}
-        {[Icon1, Icon2, Icon3].map((icon, index) => (
+        {cards.map((card) => (
           <div 
-            key={index}
-            className='border border-indigo-500 bg-indigo-300 w-full max-w-md min-h-25 rounded-3xl flex flex-row items-center p-4 shadow-lg transition-transform hover:scale-[1.02]'
+            key={card.id}
+            className='border border-indigo-500 bg-linear-to-r from-[#246ae3] to-[#8af7e1] w-full max-w-md min-h-25 rounded-3xl flex flex-row items-center p-4 shadow-lg transition-transform hover:scale-[1.02]'
           >
             {/* Icon Container */}
-            <div className='shrink-0 mr-4'>
+            <div className='shrink-0 mr-4 bg-[#c4def9] rounded-full'>
               <img 
-                src={icon} 
+                src={card.icon} 
                 alt="icon"
                 className='h-16 w-16 sm:h-20 sm:w-20 object-contain' 
               />
@@ -85,10 +111,10 @@ const Scene = () => {
             {/* Text Container */}
             <div className='flex flex-col justify-center items-start overflow-hidden'>
               <h3 className='text-lg sm:text-[20px] font-bold uppercase text-gray-700 leading-tight'>
-                Test <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>title</span>
+                {card.title}
               </h3>
-              <p className='text-sm sm:text-base text-gray-600 line-clamp-2'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              <p className='text-sm sm:text-base text-gray-800 line-clamp-2'>
+                {card.subtitle}
               </p>
             </div>
           </div>
@@ -98,5 +124,7 @@ const Scene = () => {
     </div>
   )
 }
+
+
 
 export default Scene
