@@ -1,5 +1,6 @@
-import React, { useState } from 'react' 
+import React, { useState, useEffect, useRef } from 'react' 
 import { Canvas } from '@react-three/fiber'
+import gsap from 'gsap'
 import Model1 from './Model1'
 import Model2 from './Model2'
 import Icon1 from '../assets/images/Minimalistic-icon-1.png'
@@ -11,6 +12,7 @@ import Geometry3 from './PlaneMaterials/Geometry3'
 import Geometry4 from './PlaneMaterials/Geometry4'
 import Geometry5 from './PlaneMaterials/Geometry5'
 import { Float } from '@react-three/drei'
+import CardScene from './CardScene'
 
 const Scene = () => {
 
@@ -59,12 +61,47 @@ const Scene = () => {
     }
   ]
 
+  //--------------------------Animation code for the cards
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const cards = gsap.utils.toArray(containerRef.current.children);
+    if (!cards.length) return;
+
+    const tl = gsap.timeline({ repeat: -1 });
+
+    cards.forEach((card, i) => {
+      tl.to(card, {
+        x: -100,
+        duration: 1,
+        ease: 'power2.out',
+      })
+
+      .to({}, { duration: 0.5 })  // pause while shifted left
+
+      .to(card, {
+        x: 0,
+        duration: 1,
+        ease: 'power2.in',
+      });
+
+      if (i < cards.length - 1) {
+        tl.to({}, { duration: 0.6 });
+      }
+    });
+
+    tl.to({}, { duration: 1 });
+
+    return () => tl.kill();
+  }, []);
+
 
   return (
     <div className='h-120 w-full overflow-visible flex flex-row justify-center items-center'>
 
-      <div className='h-full w-[50%] max-md:w-full'>
-        <Canvas className='w-[50%]'>
+      <div className='h-full w-[50%] max-md:w-full relative flex justify-center items-center'>
+        <Canvas className='w-[50%] max-md:w-full'>
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <pointLight position={[-5, 2, -5]} intensity={1.5} color="blue" /> 
           <ambientLight intensity={2} />
@@ -92,32 +129,10 @@ const Scene = () => {
         </Canvas>
       </div>
 
-      <div className='hidden md:flex h-full w-full sm:w-[50%] flex-col justify-center items-center p-4 gap-4'>
+      <div ref={containerRef} className='hidden md:flex h-full w-full sm:w-[50%] flex-col justify-center items-center p-4 gap-4'>
         {/* Card Component Pattern */}
         {cards.map((card) => (
-          <div 
-            key={card.id}
-            className='border border-indigo-500 bg-linear-to-r from-[#246ae3] to-[#8af7e1] w-full max-w-md min-h-25 rounded-3xl flex flex-row items-center p-4 shadow-lg transition-transform hover:scale-[1.02]'
-          >
-            {/* Icon Container */}
-            <div className='shrink-0 mr-4 bg-[#c4def9] rounded-full'>
-              <img 
-                src={card.icon} 
-                alt="icon"
-                className='h-16 w-16 sm:h-20 sm:w-20 object-contain' 
-              />
-            </div>
-
-            {/* Text Container */}
-            <div className='flex flex-col justify-center items-start overflow-hidden'>
-              <h3 className='text-lg sm:text-[20px] font-bold uppercase text-gray-700 leading-tight'>
-                {card.title}
-              </h3>
-              <p className='text-sm sm:text-base text-gray-800 line-clamp-2'>
-                {card.subtitle}
-              </p>
-            </div>
-          </div>
+          <CardScene key={card.id} card={card} />
         ))}
 
       </div>
