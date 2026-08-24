@@ -43,7 +43,7 @@ const Scene = () => {
       id: 0,
       icon: Icon1,
       title: 'rapidez',
-      subtitle: 'los envios se entregan en menos de 48 horas',
+      subtitle: 'los envios se entregan en menos de 24 horas',
     },
     {
       id: 1,

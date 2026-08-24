@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from '../assets/images/logo-3d.png'
 
 const Marquee = () => {
-  const phrases = ['test phrase 1', 'test phrase 2', 'test phrase 3']
+  const phrases = ['Tu tienda online', 'rapida y segura', 'conecta con tu familia']
 
   const MarqueeContent = () => (
     <div className="shrink-0 flex flex-row items-center bg-[#4f83dd] whitespace-nowrap">
