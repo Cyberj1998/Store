@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react' 
+import React, { useState, useEffect, useRef, Suspense } from 'react' 
 import { Canvas } from '@react-three/fiber'
 import gsap from 'gsap'
 import Model1 from './Model1'
@@ -11,10 +11,30 @@ import Geometry2 from './PlaneMaterials/Geometry2'
 import Geometry3 from './PlaneMaterials/Geometry3'
 import Geometry4 from './PlaneMaterials/Geometry4'
 import Geometry5 from './PlaneMaterials/Geometry5'
-import { Float } from '@react-three/drei'
+import LoadingImage from '../assets/images/LoadingImage.png'
+import { Float, useProgress } from '@react-three/drei'
 import CardScene from './CardScene'
 
 const Scene = () => {
+
+  //----------------array de subtitulos
+
+  const promoSubtitles = ['los envios se entregan en menos de 24 horas', 'metodo de pago sencillo y rapido por zelle', 'atencion al cliente para su tranquilidad' ]
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+
+        prevIndex === promoSubtitles.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+
+    return () => clearInterval(interval);
+  }, [promoSubtitles.length]);
 
   //-------------------------adjust size and position for screen sizes
 
@@ -96,37 +116,55 @@ const Scene = () => {
     return () => tl.kill();
   }, []);
 
+  //------------------------------3d model loading logic
+
+  const { progress, active } = useProgress();
+  const [showCanvas, setShowCanvas] = useState(false);
+  useEffect(() => {
+    if (!active) {
+      // Small delay to prevent flicker
+      const timer = setTimeout(() => setShowCanvas(true), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [active]);
+
 
   return (
     <div className='h-120 w-full overflow-visible flex flex-row justify-center items-center'>
 
       <div className='h-full w-[50%] max-md:w-full relative flex justify-center items-center'>
-        <Canvas className='w-[50%] max-md:w-full'>
-          <directionalLight position={[5, 5, 5]} intensity={2} />
-          <pointLight position={[-5, 2, -5]} intensity={1.5} color="blue" /> 
-          <ambientLight intensity={2} />
-          <Float speed={5} floatIntensity={.5} rotationIntensity={.5}>
-            <Geometry1 />
-            <Geometry2 />
-            <Geometry3 />
-            <Geometry4 />
-            <Geometry5 />
-          </Float>
+        {!showCanvas ? (
+          <div className='w-full h-full flex flex-col justify-center items-center relative'>
+            <h3 className='uppercase font-bold text-[25px] max-md:text-[35px] absolute top-0 text-[#535353]'>Tu Tienda <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>Online</span></h3>
+            <img 
+              src={LoadingImage}
+              alt="Loading 3D model" 
+              className="object-contain w-full h-full"
+            />
+            <p className='absolute bottom-0 text-[25px] font-bold text-[#535353] p-2 text-center'>{promoSubtitles[currentIndex]}</p>
+          </div>
+        ) : (
+          <Canvas className='w-[50%] max-md:w-full'>
+            <directionalLight position={[5, 5, 5]} intensity={2} />
+            <pointLight position={[-5, 2, -5]} intensity={1.5} color="blue" /> 
+            <ambientLight intensity={2} />
+            <Float speed={5} floatIntensity={.5} rotationIntensity={.5}>
+              <Geometry1 />
+              <Geometry2 />
+              <Geometry3 />
+              <Geometry4 />
+              <Geometry5 />
+            </Float>
 
-          {activeModel === 'model1' ? (
-            <Model1 
-              position={ModelPosition}
-              scale={ModelScale}  
-              rotation={Modelrotation}
-            />
-          ) : (
-            <Model2 
-              position={ModelPosition}
-              scale={ModelScale}  
-              rotation={Modelrotation}
-            />
-          )}
-        </Canvas>
+            <Suspense fallback={null}>
+              {activeModel === 'model1' ? (
+                <Model1 position={ModelPosition} scale={ModelScale} rotation={Modelrotation} />
+              ) : (
+                <Model2 position={ModelPosition} scale={ModelScale} rotation={Modelrotation} />
+              )}
+            </Suspense>
+          </Canvas>
+        )}
       </div>
 
       <div ref={containerRef} className='hidden md:flex h-full w-full sm:w-[50%] flex-col justify-center items-center p-4 gap-4'>

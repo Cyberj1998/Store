@@ -1,7 +1,6 @@
 import React from 'react'
 import CartIcon from '../assets/images/cart.png'
 import useCartStore from '../store/CartSlice'
-import TestImage from '../assets/images/promos/bentoPromo-1.jpg'
 import Background from '../assets/images/backgroundPopularCard.jpg'
 
 const PopularCard = ({ index, product }) => {
