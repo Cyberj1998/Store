@@ -136,11 +136,7 @@ const Scene = () => {
         <h3 className='uppercase absolute top-0 text-center text-[70px] max-md:text-[60px] hidden max-md:block font-extrabold text-[#535353] opacity-60'>rapidez <br /> <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>seguridad</span> <br /> eficiencia <br /> <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>ofertas</span> <br /></h3>
         {!showCanvas ? (
           <div className='w-full h-full flex flex-col justify-center items-center relative'>
-            <img 
-              src={LoadingImage}
-              alt="Loading 3D model" 
-              className="object-contain w-full h-full"
-            />
+            <p className='text-[15px] font-semibold text-[#535353]'>Cargando...</p>
           </div>
         ) : (
           <Canvas className='w-[50%] max-md:w-full'>
