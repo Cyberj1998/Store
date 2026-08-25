@@ -46,7 +46,7 @@ const Shop = ({ category, search }) => {
 
 
 
-  //----------------------psgination function
+  //----------------------pagination function
   const handlePagination = () => {
     const nextOffset = offset + LIMIT;
     setOffset(nextOffset);       
@@ -105,7 +105,7 @@ const Shop = ({ category, search }) => {
     <div className="w-full min-h-screen relative overflow-y-auto py-5 mx-auto flex flex-col">
      
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 z-10">
-        {filteredProducts.length != 0 ? filteredProducts.map(product => (
+        {products.length != 0 ? products.map(product => (
           <ProductCard 
           key={product.$id}
           product={product}

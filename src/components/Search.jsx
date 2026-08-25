@@ -6,12 +6,10 @@ const Search = ({ category, setCategory, setSearch, search, handleCallBySearchNa
 
   const categories = [
     'todo',
-    'electrodomesticos',
     'bebidas',
     'aseo',
     'confituras',
     'micelaneas',
-    'carnicos',
   ];
 
   return (

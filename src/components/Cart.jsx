@@ -84,7 +84,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col items-center overflow-y-auto pt-16 space-y-4 px-2">
+    <div className="h-screen w-full flex flex-col items-center overflow-y-auto mt-5 space-y-4 px-2">
       
       
       {modal ? (
@@ -144,7 +144,7 @@ const Cart = () => {
         ) : ''
       }
 
-
+      <div className='border border-[#545454] rounded-2xl bg-[#f1f1f1] mb-5 h-full w-full flex flex-col justify-start items-center overflow-y-scroll'>
       {cart.length > 0 ? (
         cart.map((item) => (
           <CartCard 
@@ -155,11 +155,12 @@ const Cart = () => {
       ) : (
         <p className="text-gray-500 text-lg mt-10">Carrito Vacio</p>
       )}
+      </div>
 
       {
         cart.length > 0 ? (
           <button 
-            className="checkout-btn mt-6 mb-2 cursor-pointer w-full max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
+            className="checkout-btn mb-2 cursor-pointer w-full max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
             onClick={()=>handleModal()}
           >
             <p className="uppercase text-[20px] font-bold">Comprar</p>
