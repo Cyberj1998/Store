@@ -133,6 +133,7 @@ const Scene = () => {
     <div className='h-120 w-full overflow-visible flex flex-row justify-center items-center'>
 
       <div className='h-full w-[50%] max-md:w-full relative flex justify-center items-center'>
+        <h3 className='uppercase absolute top-0 text-center text-[70px] max-md:text-[60px] hidden max-md:block font-extrabold text-[#535353]'>rapidez <br /> <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>seguridad</span> <br /> eficiencia <br /> <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>ofertas</span> <br /></h3>
         {!showCanvas ? (
           <div className='w-full h-full flex flex-col justify-center items-center relative'>
             <h3 className='uppercase font-bold text-[25px] max-md:text-[35px] absolute top-0 text-[#535353]'>Tu Tienda <span className='text-transparent bg-clip-text bg-linear-to-r from-[#246ae3] to-[#8af7e1]'>Online</span></h3>
