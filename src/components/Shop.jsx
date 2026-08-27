@@ -105,12 +105,14 @@ const Shop = ({ category, search }) => {
     <div className="w-full min-h-screen relative overflow-y-auto py-5 mx-auto flex flex-col">
      
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 z-10">
-        {products.length != 0 ? products.map(product => (
-          <ProductCard 
-          key={product.$id}
-          product={product}
-          className="w-full transform hover:scale-105 transition-transform duration-300 shadow-lg rounded-lg bg-white"
-          />
+        {filteredProducts.length != 0 ? filteredProducts.map(product => (
+          product.disponible ? (
+            <ProductCard 
+              key={product.$id}
+              product={product}
+              className="w-full transform hover:scale-105 transition-transform duration-300 shadow-lg rounded-lg bg-white"
+            />
+          ) : ''
         )) : <p className="text-blue-400 text-[20px] relative">Cargando...</p>}
       </div>
 

@@ -11,6 +11,7 @@ import Cart from './components/Cart'
 import Search from './components/Search'
 import AdminPage from './components/AdminPage'
 import Footer from './components/Footer'
+import DetailsPage from './components/DetailsPage'
 import CartIcon from './assets/images/cart.png'
 import {
   BrowserRouter as Router,
@@ -123,6 +124,15 @@ function App() {
               <>
                 <NavBar />
                 <AdminPage />
+              </>
+            }
+          />
+          <Route 
+            path='/details'
+            element={
+              <>
+                <NavBar />
+                <DetailsPage />
               </>
             }
           />

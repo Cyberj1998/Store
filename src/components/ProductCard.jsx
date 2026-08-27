@@ -1,5 +1,6 @@
 import useCartStore from "../store/CartSlice"
 import CartIcon from '../assets/images/cart.png'
+import { Link } from "react-router-dom"
 
 const ProductCard = ({ product }) => {
 
@@ -7,11 +8,16 @@ const ProductCard = ({ product }) => {
 
   return ( 
     <div className="w-full h-auto bg-white p-3 flex flex-col items-center gap-1 rounded-3xl border border-gray-300 shadow-md hover:shadow-xl transition-shadow duration-300">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="w-full h-40 md:h-50 object-fill rounded-2xl"
-      />
+      <Link 
+        to={'/details'}
+        state={{ product }}
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-40 md:h-50 object-fill rounded-2xl"
+        />
+      </Link>
       <div className="flex flex-col gap-3 w-full text-center">
         <h3 className="text-2xl font-semibold text-gray-900 truncate">{product.name}</h3>
         <span className="text-[12px] text-[#808080]">{product.category}</span>
