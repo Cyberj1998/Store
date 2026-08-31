@@ -85,10 +85,9 @@ const Cart = () => {
 
   return (
     <div className="h-screen w-full flex flex-col items-center overflow-y-auto mt-5 space-y-4 px-2">
-      
-      
+         
       {modal ? (
-        <div className="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-3xl shadow-lg w-[40%] max-md:w-[90%] max-h-[90vh] p-8 flex flex-col gap-6 overflow-auto">
+        <div className="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 overflow-hidden bg-white rounded-3xl shadow-lg w-[40%] max-md:w-[90%] max-h-[90vh] p-8 flex flex-col gap-6">
           <button 
             onClick={()=>handleModal()}
             className="self-end cursor-pointer bg-red-500 hover:bg-red-600 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center shadow-md transition"
@@ -170,5 +169,7 @@ const Cart = () => {
     </div>
   )
 }
+
+
 
 export default Cart
