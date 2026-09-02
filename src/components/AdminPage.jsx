@@ -24,8 +24,14 @@ const AdminPage = () => {
   const handleCallOrders = async () => {
     try {
       const response = await tablesDB.listRows(DATABASE_ID, "orders");
-     setOrders(response.rows)
-
+      const ordersWithWinner = response.rows.map(order=>{
+        if(order.email){
+          const isWinner = Math.random() < 0.01;
+          return{...order, winner: isWinner}
+        }
+        return{...order, winner: false}
+      })
+      setOrders(ordersWithWinner)
     } catch (error) {
       console.log(error);
     }
@@ -157,6 +163,9 @@ const AdminPage = () => {
             <div className="mb-4 space-y-1">
               <p className="text-sm text-gray-500"><span className="font-medium">Entregar:</span> {order.receiver}</p>
               <p className="text-sm text-gray-500"><span className="font-medium">Direccion:</span> {order.address}</p>
+              <p className="text-sm text-gray-500"><span className="font-medium">Movil:</span> {order.movil}</p>
+              <p className="text-sm text-gray-500"><span className="font-medium">Sorteo email:</span> {order.email}</p>
+              <p className='text-sm text-gray-500'><span className={`font-medium ${order.winner ? 'bg-green-300 rounded-2xl' : ''}`}>GANADOR</span>{order.winner ? 'GANADOR' : ''}</p>
               <p className="text-sm text-gray-500"><span className="font-medium">Total:</span> <span className="font-bold">${order.total}</span></p>
             </div>
 
