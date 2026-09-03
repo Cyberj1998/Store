@@ -4,6 +4,7 @@ import Delete from '../assets/images/delete.png'
 import Arrow from '../assets/images/right.png'
 import WhiteWaves from '../assets/images/whiteWaves.svg'
 import blob from '../assets/images/blob.svg'
+import Hand from '../assets/images/hand.png'
 import productGiveAway from '../assets/images/productGiveAwway.png'
 import { useState, useEffect } from "react"
 import CodeModal from "./CodeModal"
@@ -103,6 +104,18 @@ const Cart = () => {
          
       {modal ? (
         <div className={`modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 overflow-hidden bg-white rounded-3xl shadow-lg w-[40%] max-md:w-[90%] ${giveAwayModal ? '' : 'overflow-y-scroll'} max-h-[90vh] p-8 flex flex-col gap-6`}>
+          {
+            !giveAwayModal ? (
+              <img 
+                src={Hand} 
+                alt="hand"
+                className="h-8 w-8 absolute top-0 left-1/2 ml-10 mt-2 z-100" 
+                style={{ 
+                  animation: 'peekAndWave 4s ease-in-out infinite'
+                }}
+              />
+            ) : ''
+          }
           <button
             onClick={()=>handleGiveAwayModal()} 
             className="absolute top-0 left-1/2 rounded-full cursor-pointer z-70"

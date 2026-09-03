@@ -12,3 +12,30 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
+
+/* Add this to your CSS file or use a <style> tag */
+@keyframes peekAndWave {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-50%) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(-50%) rotate(-20deg);
+  }
+  45% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  60% {
+    transform: translateX(-50%) rotate(-20deg);
+  }
+  75% {
+    transform: translateX(-50%) rotate(0deg);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+}
