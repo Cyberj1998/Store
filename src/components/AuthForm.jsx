@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Client, Account } from 'appwrite'
+import React, { useState, useEffect } from 'react';
+import { Client, Account, TablesDB } from 'appwrite';
 
 const ENDPOINT = import.meta.env.VITE_PUBLIC_ENDPOINT;
 const PROJECT_ID = import.meta.env.VITE_PUBLIC_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_PUBLIC_DATABASE_ID;
 
-const client = new Client()
-  .setEndpoint(ENDPOINT)
-  .setProject(PROJECT_ID);
+const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+const tablesDB = new TablesDB(client);
 
 export const account = new Account(client);
 
@@ -15,46 +15,31 @@ const AuthForm = ({ setAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+  const [loading, setLoading] = useState(false); // 🔹 Added missing state
 
   //--------------------handle submit
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+    if (e) e.preventDefault();
 
     try {
-      await account.createEmailPasswordSession(email, password);
-      setAuthenticated(true);
-    } catch (err) {
-     
-      if (err.message.includes("session is active")) {
+      const response = await tablesDB.listRows(DATABASE_ID, "6aa94146000f6c4fa18b");
+      const users = response.rows;
 
+      const userExists = users.some(
+        (user) => user.email === email && user.password === password
+      );
+
+      if (userExists) {
         setAuthenticated(true);
       } else {
-        setError(err?.message || 'Error al iniciar sesión');
+        alert("El usuario no existe o las credenciales son incorrectas");
       }
-    } finally {
-      setLoading(false);
+
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      alert("Hubo un error al conectar con la base de datos");
     }
   };
-
-
-  //------------use effect to check if the session is open
-
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        await account.get();
-        setAuthenticated(true);
-      } catch (err) {
-
-        console.log("No active session found.");
-      }
-    };
-    checkSession();
-  }, [setAuthenticated]);
-
 
   return (
     <div className="flex flex-col w-full max-w-sm h-screen mx-auto p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
@@ -99,9 +84,10 @@ const AuthForm = ({ setAuthenticated }) => {
 
         <button
           type="submit"
-          className="w-full py-3.5 px-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-bold rounded-xl shadow-md hover:shadow-lg transform active:scale-[0.98] transition-all duration-300 mt-2"
+          disabled={loading} // 🔹 Disable while loading
+          className="w-full py-3.5 px-4 cursor-pointer bg-linear-to-r from-[#5289e7] to-[#65f8d8] hover:from-[#65f8d8] hover:to-[#5289e7] text-white font-bold rounded-xl shadow-md hover:shadow-lg transform active:scale-[0.98] transition-all duration-300 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Iniciar Sesión
+          {loading ? 'Cargando...' : 'Iniciar Sesión'} {/* 🔹 Show loading text */}
         </button>
       </form>
     </div>

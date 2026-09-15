@@ -166,7 +166,7 @@ const Cart = () => {
                   </div>
                   <div className="w-full flex justify-center items-center">
                     <button 
-                      className="checkout-btn mb-2 cursor-pointer w-[80] max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] border border-white hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
+                      className="checkout-btn mb-2 cursor-pointer w-fit min-w-50 max-w-xl p-4 bg-linear-to-r from-[#5289e7] to-[#65f8d8] border border-white hover:from-[#65f8d8] hover:to-[#5289e7] text-white rounded-2xl shadow transition duration-500"
                       onClick={()=>checkoutFunction(address, destinatario, total, movil, email)}
                     >
                       <p className="uppercase text-[20px] font-bold">Terminar compra</p>
