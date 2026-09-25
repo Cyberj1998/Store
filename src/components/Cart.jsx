@@ -217,7 +217,7 @@ const Cart = () => {
             className="resize-none border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
           />
 
-          <label htmlFor="movil" className="text-sm font-medium text-gray-600">tu numero de movil</label>
+          <label htmlFor="movil" className="text-sm font-medium text-gray-600">Movil del Destinatario</label>
           <input
             id="movil" 
             type="text" 

@@ -1,96 +1,95 @@
 import { create } from "zustand";
 
-const useCartStore = create((set, get)=>({
-    cart: [],
-    databaseCache: [],
-    popularProducts: [],
+// Helper to round a number to 2 decimal places (for money)
+const roundToTwo = (num) => Math.round(num * 100) / 100;
 
-    //---------------add to cache
-    addToCache: (product) => {
-      const cache = get().databaseCache;
-      const exists = cache.find((item) => item.$id === product.$id);
+const useCartStore = create((set, get) => ({
+  cart: [],
+  databaseCache: [],
+  popularProducts: [],
 
-      if (!exists) {
-        set({ databaseCache: [...cache, product] });
-      }
-    },
+  //---------------add to cache
+  addToCache: (product) => {
+    const cache = get().databaseCache;
+    const exists = cache.find((item) => item.$id === product.$id);
 
-    //---------------add to populars
-    addToPopulars: (product) => {
-      const cache = get().popularProducts;
-      const exists = cache.find((item) => item.$id === product.$id);
+    if (!exists) {
+      set({ databaseCache: [...cache, product] });
+    }
+  },
 
-      if (!exists) {
-        set({ popularProducts: [...cache, product] });
-      }
-    },
+  //---------------add to populars
+  addToPopulars: (product) => {
+    const cache = get().popularProducts;
+    const exists = cache.find((item) => item.$id === product.$id);
 
+    if (!exists) {
+      set({ popularProducts: [...cache, product] });
+    }
+  },
 
-    //-----------------------------add to cart
-
-    addToCart: (product, quantity = 1) => {
-      const cart = get().cart;
-      const existing = cart.find(item => item.$id === product.$id);
-      if (existing) {
-        set({
-        cart: cart.map(item =>
+  //-----------------------------add to cart
+  addToCart: (product, quantity = 1) => {
+    const cart = get().cart;
+    const existing = cart.find((item) => item.$id === product.$id);
+    if (existing) {
+      set({
+        cart: cart.map((item) =>
           item.$id === product.$id
-          ? { ...item, quantity: item.quantity + quantity }
-          : item
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         ),
-        });
-      } else {
-        set({ cart: [...cart, { ...product, quantity }] });
-      }
-    },
+      });
+    } else {
+      set({ cart: [...cart, { ...product, quantity }] });
+    }
+  },
 
-    //--------------------------remove from cart
+  //--------------------------remove from cart
+  removeFromCart: (productId) => {
+    set({ cart: get().cart.filter((item) => item.$id !== productId) });
+  },
 
-    removeFromCart: (productId) => {
-        set({cart: get().cart.filter(item=>item.$id !== productId)})
-    },
+  //------------------------increase quantity
+  increaseQuantity: (productId) => {
+    set({
+      cart: get().cart.map((item) =>
+        item.$id === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ),
+    });
+  },
 
-    //------------------------increase quantity
+  //---------------------decrease quantity
+  decreaseQuantity: (productId) => {
+    set({
+      cart: get()
+        .cart.map((item) =>
+          item.$id === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0),
+    });
+  },
 
-    increaseQuantity: (productId) =>{
-        set({
-            cart: get().cart.map(item =>
-                item.$id === productId 
-                ? {...item, quantity: item.quantity + 1 } : item
-            )
-        })
-    },
+  //---------------------get total quantity
+  getTotalQuantity: () => {
+    return get().cart.reduce((total, product) => total + product.quantity, 0);
+  },
 
-    //---------------------decrease quantity
+  //--------------get total price (rounded to 2 decimal places)
+  getTotalPrice: () => {
+    const total = get().cart.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0
+    );
+    return roundToTwo(total); // Round to avoid floating-point errors
+  },
 
-    decreaseQuantity: (productId) =>{
-        set({
-            cart: get().cart.map(item=>
-                item.$id === productId
-                ? {...item, quantity: item.quantity -1} : item
-            ).filter(item=>item.quantity > 0)
-        })
-    },
+  //-----------------clean cart
+  clearCart: () => set({ cart: [] }),
+}));
 
-    //---------------------get total quantity
-
-    getTotalQuantity: () => {
-        return get().cart.reduce((total, product)=>total + product.quantity, 0)
-    },
-
-
-    //--------------get total price
-
-    getTotalPrice: () => {
-        return get().cart.reduce((total, product)=>total + product.price * product.quantity, 0)
-    },
-
-    //-----------------clean cart
-
-    clearCart: () => set(
-        { cart: [] }
-    ),
-
-}))
-
-export default useCartStore
+export default useCartStore;

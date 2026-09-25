@@ -43,7 +43,8 @@ const CodeModal = ({ total, code, setModalCode }) => {
 
           <div className="bg-gray-50 rounded-xl p-4 space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Número Zelle</p>
+              <p className="text-sm text-gray-500">Contacto de Zelle</p>
+              <p className="text-sm text-gray-500">JOSE GONZALES CARRASCO</p>
               <p className="text-lg font-semibold text-gray-900">786 575 6456</p>
             </div>
             <div>
